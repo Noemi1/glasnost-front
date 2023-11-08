@@ -1,0 +1,6 @@
+
+.form-control[disabled] {
+    cursor: default;
+    /* background-color: #fff; */
+    background-color: inherit;
+}

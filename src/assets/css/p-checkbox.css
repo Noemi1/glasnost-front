@@ -1,0 +1,69 @@
+.p-component,
+.p-component * {
+    box-sizing: border-box;
+}
+
+p-checkbox {
+    display: inline-flex;
+    vertical-align: bottom;
+    align-items: center;
+}
+
+.p-checkbox {
+    display: inline-flex;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    vertical-align: bottom;
+    position: relative;
+}
+
+.p-hidden-accessible {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.p-hidden-accessible input,
+.p-hidden-accessible select {
+    transform: scale(0);
+}
+
+.p-checkbox .p-checkbox-box {
+    border: 2px solid #ced4da;
+    background: #ffffff;
+    width: 22px;
+    height: 22px;
+    color: #495057;
+    border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.p-checkbox .p-checkbox-box.p-highlight {
+    border-color: rgb(var(--primary-dark));
+    background: rgb(var(--primary-dark));
+}
+
+.p-icon-wrapper {
+    display: inline-flex;
+}
+
+.p-checkbox .p-checkbox-box .p-icon {
+    width: 14px;
+    height: 14px;
+}
+
+.p-checkbox .p-checkbox-box .p-checkbox-icon {
+    transition-duration: 0.2s;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.p-icon {
+    display: inline-block;
+}

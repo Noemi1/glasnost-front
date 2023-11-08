@@ -1,0 +1,215 @@
+.navigation {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    max-width: 230px;
+    width: 80%;
+    transition: 0.3s;
+    transform: translateX(-100%);
+}
+
+.navigation.open {
+    transform: translateX(0);
+}
+
+.navigation__toggle-content {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(calc(100% + 10px));
+    height: 50px;
+}
+
+.navigation__toggle {
+    position: relative;
+    left: 5px;
+    width: 30px;
+    height: 30px;
+    background-color: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px var(--dark) solid;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.navigation__toggle-logo {
+    height: 55px;
+    overflow: hidden;
+    transform: translateY(-5px) translateX(-40px);
+    padding: 5px 5px 5px 50px;
+    z-index: -1;
+}
+
+.navigation__toggle-logo img {
+    height: 100%;
+    width: auto;
+}
+
+.navigation.open .navigation__toggle {
+    background-color: var(--dark);
+    border-color: var(--dark);
+}
+
+.navigation__toggle span {
+    width: 60%;
+    height: 2px;
+    background-color: white;
+    position: absolute;
+    border-radius: 5px;
+}
+
+.navigation__toggle span:first-child {
+    transform: translateY(-5px);
+}
+
+.navigation__toggle span:last-child {
+    transform: translateY(5px);
+}
+
+.navigation__content {
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-flow: column;
+    background-color: var(--dark);
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    box-shadow: 2px 2px 13px 3px #00000036;
+    transition: .3s;
+}
+
+.navigation__logo {
+    padding: 13px 15px 0;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+}
+
+.navigation__logo img {
+    height: auto;
+    width: 90%;
+    max-width: 140px;
+    margin: 5px 30px;
+}
+
+.navigation__logo h3 {
+    color: #fff;
+    line-height: 1;
+}
+
+.navigation__links {
+    display: flex;
+    flex-flow: column;
+    position: relative;
+    margin: 20px 10px;
+}
+
+.navigation__links::before {
+    position: absolute;
+    left: 0;
+    top: 19px;
+    height: calc(100% - 35px);
+    width: 1px;
+    background-color: #fff;
+    opacity: 0.3;
+}
+
+.navigation__links-item {
+    position: relative;
+    width: 100%;
+}
+
+.navigation__links-item a,
+.navigation__links-item p {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 35px;
+    padding: 6px 10px;
+    text-decoration: none;
+    color: #ffffffc7;
+    font-weight: 100;
+    font-size: 15px;
+    cursor: pointer;
+    z-index: 1;
+    transition: .3s;
+}
+
+.navigation__links-item:hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff1f;
+    z-index: 0;
+}
+
+.navigation__item-icon {
+    font-size: 12px;
+}
+
+.navigation__links-item:hover .navigation__item-icon {
+    background: var(--dark-light);
+}
+
+.navigation__item-search {
+    position: relative;
+    margin: 10px 0px;
+}
+
+.navigation__item-search .input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navigation__item-search .input .icon {
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    transform: translate(100%, -50%);
+    display: flex;
+    font-size: 10px;
+    color: #bfb9b9;
+}
+
+.navigation__item-search .input .text {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    display: flex;
+    color: #bfb9b9;
+    font-size: 13px;
+}
+
+.navigation__item-search .input input {
+    color: #fff;
+    padding: 7px 45px 7px 30px;
+    width: 100%;
+    border: 1px #202020 solid;
+    font-size: 13px;
+    background-color: #202020;
+    display: flex;
+    border-radius: 6px;
+}
+
+.navigation__item-search .input::placeholder {
+    color: #bfb9b9;
+}
+
+.navigation__item-search .input input.active {
+    border-radius: 6px 6px 0 0;
+}

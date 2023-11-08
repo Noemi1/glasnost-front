@@ -1,1 +1,107 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('./assets/css/fonts.css');
+
+:root {
+    --yellow: #ffc734;
+    --yellow-dark: #dca001;
+    --dark: #0c0c0c;
+    --light: #efefef;
+    --red: #e81717;
+    --green: #1a9d24;
+    --primary: 255 196 0;
+    --primary-light: 247 197 29;
+    --primary-dark: 213 164 0;
+    --secondary: 18 17 31;
+    --secondary-light: 23 23 35;
+    --secondary-dark: 5 5 12;
+    --grey: 59 59 71;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: .4s font-size 0s;
+}
+
+*::-webkit-scrollbar {
+    width: 10px;
+    height: 7px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--dark);
+    transition: .5s;
+}
+
+*::-webkit-scrollbar-track {
+    background-color: rgba(173, 170, 170, 0.9);
+}
+
+*:focus {
+    outline: none !important;
+}
+
+body {
+    color: #3f3c3c;
+    font-size: 14px;
+    transition: font-size 0s;
+    overflow-x: hidden;
+    background-color: #efefef;
+    font-family: Regular;
+}
+
+p {
+    margin: 0;
+}
+
+img {
+    max-width: 100%;
+}
+
+label:not(form label),
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: 0;
+}
+
+hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+[type=button],
+[type=reset],
+[type=submit],
+button {
+    -webkit-appearance: button;
+}
+
+.text-info {
+    color: rgb(var(--secondary-light)) !important;
+}
+
+.text-light {
+    color: var(--light);
+}
+
+.text-thin {
+    font-family: 'Light';
+}
+*[hidden] {
+    display: none!important;
+}
+@import url('./assets/css/buttons.css');
+@import url('./assets/css/form.css');
+@import url('./assets/css/modal.css');
+@import url('./assets/css/page.css');
+@import url('./assets/css/p-general.css');
+@import url('./assets/css/p-table.css');
+@import url('./assets/css/p-paginator.css');
+@import url('./assets/css/p-dropdown.css');
+@import url('./assets/css/p-accordion.css');
+@import url('./assets/css/p-panel.css');
+@import url('./assets/css/p-checkbox.css');

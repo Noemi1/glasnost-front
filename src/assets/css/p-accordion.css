@@ -1,0 +1,25 @@
+.p-accordion-tab {
+    margin-bottom: 5px;
+}
+
+.p-accordion-tab.p-accordion-tab-active {}
+
+.p-accordion-header {
+    background-color: rgb(var(--primary));
+    color: #fff;
+    padding: 9px 10px;
+}
+
+.p-accordion-header.p-highlight {
+    background-color: rgb(var(--primary-light));
+}
+
+.p-accordion-header-link {
+    color: #fff;
+    text-decoration: none;
+}
+
+.p-accordion-toggle-icon {
+    margin-right: 6px;
+    margin-bottom: -2px;
+}

@@ -1,0 +1,30 @@
+<header class="header">
+    <div class="header-logo">
+        <img src="assets/img/logo-inline-white.png" alt="Logo ToComply">
+    </div>
+    <div class="header__userLogado ml-auto">
+        <div class="header__userLogado-content" [class.header__userLogado-submenu--open]="menuHeaderOpen"
+             (click)="toggleMenuHeader()">
+            <div class="header__userLogado-img">
+                <fa-icon [icon]="faUser"></fa-icon>
+            </div>
+            <div class="header__userLogado-text">
+                <p>{{nomeAbreviado}}</p>
+                <p>calmeida.no@gmail.com</p>
+                <!-- <p>{{userLogado?.email}}</p>
+                <p>{{perfil}}</p> -->
+            </div>
+        </div>
+    </div>
+</header>
+<div class="header__userLogado-submenu" [class.header__userLogado-submenu--open]="menuHeaderOpen">
+    <p class="header__userLogado-submenu-link">Welcome</p>
+    <a class="header__userLogado-submenu-link" [routerLink]="['my-account']">
+        <span style="margin-right: 8px;">
+            <fa-icon [icon]="faIdCard"></fa-icon>
+        </span> Meus dados </a>
+    <a class="header__userLogado-submenu-link" (click)="sair()">
+        <span style="margin-right: 8px;">
+            <fa-icon [icon]="faSignOut"></fa-icon>
+        </span> Sair </a>
+</div>

@@ -1,0 +1,64 @@
+<aside class="navigation" [class.open]="menuOpen">
+    <div class="navigation__toggle-content">
+        <button class="navigation__toggle" (click)="toggleAside()">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+    <div class="navigation__content">
+        <div class="navigation__logo">
+            <img src="assets/img/logo-inline-white.png" alt="Logo ToComply">
+        </div>
+        <div class="navigation__links">
+                <p class="text-thin text-light" >Navegação</p>
+                <div class="navigation__item-search">
+                    <div class="input">
+                        <span class="icon">
+                            <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+                        </span>
+                        <input type="search" placeholder="Search" [(ngModel)]="search" (ngModelChange)="filtrarNodes($event)"  (blur)="filtrarNodes($event)" >
+                        <span class="text">enter</span>
+                    </div>
+                </div>
+                <div> 
+                    <div *ngFor="let item of gfg">
+                        <p-panel *ngIf="item.visible" 
+                                [toggleable]="item.items != undefined"
+                                 toggler="header"
+                                 [collapsed]="item.collapsed"
+                                 [collapseIcon]="'pi pi-chevron-down'"
+                                 [expandIcon]="'pi pi-chevron-right'"
+                                 #menu>
+                            <ng-template pTemplate="header">
+                                <div class="navigation__links-item">
+                                    <a class="label-link" *ngIf="item.routerLink" [routerLink]="item.routerLink" routerLinkActive="label-link-acive">{{item.label}}</a>
+                                    <p class="label-link" *ngIf="!item.routerLink" >{{item.label}}</p>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="icons" >
+                                <a *ngIf="item.routerLink" [routerLink]="item.routerLink" routerLinkActive="botao-panel-acive" class="p-panel-header-icon p-link botao-panel" title="Redirecionar para {{item.label}}">
+                                    <fa-icon [icon]="faLink"></fa-icon>
+                                </a>
+                            </ng-template>
+                            <ng-template pTemplate="content">
+                                <ul>
+                                    <li *ngFor="let submenu of item.items"
+                                        class="navigation__links-item"
+                                        [hidden]="!submenu.visible "
+                                        [title]="submenu.label">
+
+                                        <a class="label-link" *ngIf="submenu.routerLink" [routerLink]="submenu.routerLink" routerLinkActive="label-link-acive">
+                                            <span>{{submenu.label}}</span>
+                                            <span class="navigation__item-icon "><fa-icon [icon]="faLink"></fa-icon></span>
+                                        </a>
+                                        <p class="label-link" *ngIf="!submenu.routerLink" >{{submenu.label}}</p>
+
+                                    </li>
+                                </ul>
+                            </ng-template>
+                        </p-panel>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+</aside>

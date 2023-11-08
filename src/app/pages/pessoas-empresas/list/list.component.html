@@ -1,0 +1,29 @@
+<section class="page">
+    <div class="page__header">
+        <span class="title-icon">
+            <fa-icon [icon]="faList"></fa-icon>
+        </span>
+        <div class="me-auto">
+            <h3 class="page__header-title">Pessoas/Empresas</h3>
+            <p class="page__header-subtitle"><small>Clientes cadastrados em 
+                <!-- <strong>{{empresaSelected.nome || "Empresa X"}}</strong> -->
+            </small></p>
+
+        </div>
+    </div>
+    <div class="page__body">
+        <app-list-shared [createLink]="['cadastrar']"
+                         [canCreate]="true"
+                         [list]="list"
+                         [paginator]="true"
+                         [filterLink]="false"
+                         [filterTable]="true"
+                         [sortTable]="true"
+                         [menuTable]="true"
+                         [columns]="columns"
+                         [selectable]="true"
+                         [tableLinks]="tableLinks"
+                         [selectable]="true"></app-list-shared>
+    </div>
+</section>
+<router-outlet></router-outlet>

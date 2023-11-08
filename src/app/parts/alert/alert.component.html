@@ -1,0 +1,14 @@
+<div *ngIf="alerts.length > 0" style="z-index: 3;position: relative;">
+    <div *ngFor="let alert of alerts">
+        <div [class.alert-bg]="alert.background" (click)="removeAlert(alert)"></div>
+        <div class="{{cssClasses(alert)}} d-flex align-items-between  flex-column">
+            <a class="btn-close" (click)="removeAlert(alert)">&times;</a>
+            <div class="d-flex flex-column h-100" style="max-width: 90%;">
+                <div [innerHTML]=alert.message></div>
+            </div>
+            <div class="d-flex justify-content-end mt-auto">
+                <button class="btn btn-primary mx-0" (click)="removeAlert(alert)">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

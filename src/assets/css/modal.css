@@ -1,0 +1,132 @@
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 0;
+    opacity: 0;
+    visibility: hidden;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    transition: .5s;
+    overflow-x: hidden;
+    overflow-y: auto;
+    outline: 0;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 999;
+    transition: .5s;
+}
+
+.modal__bg {
+    background-color: #00000096;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+}
+
+.modal__inner {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    background-color: #fff;
+    z-index: 1;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    overflow: auto;
+    transform: translate(-50%, -100%);
+    transition: .4s;
+}
+
+.active .modal__inner {
+    top: 30%;
+    transform: translate(-50%, -30%);
+}
+
+.modal__content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    padding-bottom: 10px;
+}
+
+.modal__header {
+    display: flex;
+    padding: 20px 10px 20px 23px;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: wrap;
+    position: relative;
+}
+.modal__header h3 {
+    font-size: 20px;
+    color: rgb(var(--secondary));
+}
+
+.modal__header .icon {
+    margin-right: 6px;
+    color: rgb(var(--primary));
+}
+.modal__header .icon > svg {
+    font-size: 16px;
+    width: 26px;
+    line-height: 1;
+}
+.modal__header h3 img {
+    max-width: 30px;
+}
+.btn-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    opacity: .8;
+    box-sizing: content-box;
+    color: #000;
+    border-radius: .25rem;
+}
+.btn-close:hover {
+    color: #000;
+    text-decoration: none;
+    opacity: .75;
+}
+.btn-close span {
+    width: 20px;
+    height: 2px;
+    background-color: #a8a8a8;
+    position: absolute;
+}
+
+element.style {
+}
+.btn-close span:first-child {
+    transform: rotate(45deg);
+}
+
+element.style {
+}
+.btn-close span:last-child {
+    transform: rotate(-45deg);
+}
+.modal__body {
+    padding: 0 20px 10px;
+}

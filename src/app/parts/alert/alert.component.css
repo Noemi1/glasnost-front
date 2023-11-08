@@ -1,0 +1,71 @@
+.alert {
+    margin-bottom: 0;
+    animation: grow .6s both;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    position: fixed;
+    float: revert;
+    background: #fff;
+    box-shadow: 2px 2px 6px #00000057;
+    max-width: 310px;
+    width: 90%;
+    min-height: 100px;
+    max-height: 50vh;
+    border: none;
+    border-radius: 0;
+}
+
+.alert-dark {
+    color: #ffffff;
+    background-color: #272626;
+    border-color: #3c3c3c;
+}
+
+@keyframes grow {
+    0% {
+        transform: translate(-50%, -50%) scale(0)
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1)
+    }
+}
+.alert-bg {
+    position: fixed;
+    background: #000000a1;
+    width: 300%;
+    height: 300%;
+    z-index: 0;
+    top: 0;
+    left: 0;
+}
+.btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 27px;
+    padding: 0;
+    margin: 0;
+}
+.alert.alert-danger {
+    background: #ffecee;
+}
+
+.alert-header {
+    font-size: 19px;
+    margin-top: -7px;
+}
+
+.alert-danger .alert-header {
+    color: #cc0000;
+    font-weight: 800;
+}
+
+.alert-danger .btn-close {
+    color: #696767;
+    font-weight: 100;
+}
+
+.alert-danger p {
+    color: #ab0404;
+}

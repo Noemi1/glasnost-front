@@ -1,0 +1,35 @@
+<input type="text"
+       class="form-control form-control-number"
+       [id]="inputId"
+       [name]="inputId"
+       #input="ngModel"
+       [(ngModel)]="valueInput"
+       (change)="inputChanged(); validate('change');"
+       (focusout)="validate('focusout');"
+       [mask]="mask ? mask : ''"
+       [thousandSeparator]="thousandSeparator ? thousandSeparator : ''"
+       [decimalMarker]="decimalMarker"
+       [suffix]="suffix ? suffix : ''"
+       [prefix]="prefix ? prefix : ''"
+       [allowNegativeNumbers]="allowNegativeNumbers ?? false"
+       (keyup.arrowup)="arrowControls ? arrowUp(input.value) : undefined"
+       (keyup.arrowdown)="arrowControls ? arrowDown(input.value) : undefined"
+       (keyup.shift.arrowup)="arrowControls ? arrowUp(input.value, 10) : undefined"
+       (keyup.shift.arrowdown)="arrowControls ? arrowDown(input.value, 10) : undefined"
+       (keyup.control.arrowup)="arrowControls ? arrowUp(input.value, 100) : undefined"
+       (keyup.control.arrowdown)="arrowControls ? arrowDown(input.value, 100) : undefined"
+       (keyup.alt.arrowUp)="arrowControls ? arrowUp(input.value, .1) : undefined"
+       (keyup.alt.arrowdown)="arrowControls ? arrowDown(input.value, .1) : undefined"
+       [min]="min"
+       [max]="max"
+       [required]="required"
+       [placeholder]="placeholder"
+       [readonly]="readonly"
+       [disabled]="disabled">
+<div *ngIf="input.touched && input.errors && showErrorMessage">
+    <p class="text-danger" *ngIf="input.errors['required']">Este campo é obrigatório.</p>
+    <p class="text-danger" *ngIf="input.errors['mask']">Valor inválido.</p>
+    <p class="text-danger" *ngIf="input.errors['min']">Valor mínimo é {{min}}.</p>
+    <p class="text-danger" *ngIf="input.errors['max']">Valor máximo é {{max}}.</p>
+    <p class="text-danger" *ngIf="input.errors['message']">{{input.errors['message']}}</p>
+</div>

@@ -1,0 +1,22 @@
+tr {
+    cursor: default !important;
+}
+
+
+tr.selectable {
+    cursor: pointer !important;
+}
+
+
+@media (max-width: 430px) {
+    ::ng-deep .p-paginator-current {
+        width: 100%;
+        justify-content: center;
+        margin: 7px 0 10px;
+    }
+
+    ::ng-deep .p-paginator {
+        align-items: center !important;
+        justify-content: center !important;
+    }
+}
