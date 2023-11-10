@@ -17,21 +17,22 @@ import { ButtonModule } from "primeng/button";
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ModalComponent } from "./modal/modal.component";
 import { CalendarModule } from "primeng/calendar";
+import { EmpresaSelectComponent } from "./empresa-select/empresa-select.component";
 
 @NgModule({
     declarations: [
         ListSharedComponent,
         InputNumberComponent,
         ModalComponent,
+        EmpresaSelectComponent
     ],
     imports: [
         CommonModule,
         FormsModule,
-        RouterModule,
         FontAwesomeModule,
+        RouterModule,
         TableModule,
         NgxMaskModule.forChild(),
-        Primeng_DragDropModule,
         DropdownModule,
         ToastrModule,
         PickListModule,
@@ -45,6 +46,7 @@ import { CalendarModule } from "primeng/calendar";
         ListSharedComponent,
         InputNumberComponent,
         ModalComponent,
+        EmpresaSelectComponent,
     ],
 })
 export class SharedModule {

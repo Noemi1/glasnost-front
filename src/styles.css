@@ -1,13 +1,13 @@
 @import url('./assets/css/fonts.css');
 
 :root {
-    --yellow: #ffc734;
+    --yellow: rgb(220, 160, 1);
     --yellow-dark: #dca001;
     --dark: #0c0c0c;
     --light: #efefef;
     --red: #e81717;
     --green: #1a9d24;
-    --primary: 255 196 0;
+    --primary: 220, 160, 1;
     --primary-light: 247 197 29;
     --primary-dark: 213 164 0;
     --secondary: 18 17 31;
