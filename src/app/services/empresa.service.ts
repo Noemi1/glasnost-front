@@ -5,14 +5,14 @@ import { BehaviorSubject, Observable, map, of, tap } from 'rxjs';
 import { Crypto } from '../utils/crypto';
 import { environment } from 'src/environments/environment';
 import { Table } from '../utils/table';
-import { Pessoa } from '../models/pessoa.model';
+import { Empresa, EmpresaList } from '../models/empresa.model';
 
 @Injectable({
     providedIn: 'root'
 })
-export class PessoaService {
+export class EmpresaService {
     url = environment.url;
-    list = new BehaviorSubject<Pessoa[]>([]);
+    list = new BehaviorSubject<EmpresaList[]>([]);
 
     constructor(
         private table: Table,
@@ -24,7 +24,7 @@ export class PessoaService {
 
     getList() {
         this.table.loading.next(true);
-        return this.http.get<Pessoa[]>(`${this.url}/pessoa/all/`, { headers: new HttpHeaders({ 'loading': 'false' })})
+        return this.http.get<EmpresaList[]>(`${this.url}/empresa/all/`, { headers: new HttpHeaders({ 'loading': 'false' })})
         .pipe(tap({
             next: list => {
                 list = list.map(x => {
@@ -34,24 +34,24 @@ export class PessoaService {
                 this.list.next(list);
                 return of(list);
             },
-            error: res => this.toastr.error('Não foi possível carregar Pessoas.')
+            error: res => this.toastr.error('Não foi possível carregar empresas.')
         }));
     }
 
     get(id: number) {
-        return this.http.get<Pessoa>(`${this.url}/pessoa/${id}`, { headers: new HttpHeaders({ 'loading': 'true' }) });
+        return this.http.get<Empresa>(`${this.url}/empresa/${id}`, { headers: new HttpHeaders({ 'loading': 'true' }) });
     }
 
-    create(request: Pessoa) {
-        return this.http.post<Pessoa>(`${this.url}/pessoa`, request);
+    create(request: Empresa) {
+        return this.http.post<Empresa>(`${this.url}/empresa`, request);
     }
 
-    edit(request: Pessoa) {
-        return this.http.put<Pessoa>(`${this.url}/pessoa`, request);
+    edit(request: Empresa) {
+        return this.http.put<Empresa>(`${this.url}/empresa`, request);
     }
 
     delete(id: number) {
-        return this.http.delete(`${this.url}/pessoa/${id}`);
+        return this.http.delete(`${this.url}/empresa/${id}`);
     }
 
 }

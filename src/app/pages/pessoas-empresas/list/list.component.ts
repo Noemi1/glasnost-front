@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faList } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faList } from '@fortawesome/free-solid-svg-icons';
 import { MaskApplierService } from 'ngx-mask';
 import { Subscription, lastValueFrom } from 'rxjs';
 import { MenuTableLink } from 'src/app/helpers/menu-links.interface';
@@ -14,7 +14,7 @@ import { Table } from 'src/app/utils/table';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent {
-    faList = faList;
+    faList = faBars;
     columns = pessoaColumns;
     list: Pessoa[] = [];
     tableLinks: MenuTableLink[] = [];

@@ -9,6 +9,8 @@ export class Pessoa extends Basic {
     documento: number = '' as unknown as number;
     nome: string = '';
     email: string = '';
+    dataDesativado?: Date;
+    ativo: boolean = true;
 }
 
 export var pessoaColumns: Column[] = [
