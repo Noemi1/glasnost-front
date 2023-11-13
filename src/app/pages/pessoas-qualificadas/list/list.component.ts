@@ -28,6 +28,11 @@ export class ListComponent {
     ) {
         var list = this.pessoaService.list.subscribe(res => {
             this.list = Object.assign([], res);
+            
+            // this.list = this.list.map(x => {
+            //     x.documento = this.mask.applyMask(x.documento.toString().padStart(x.pj ? 14 : 11, '0'), x.pj ? '00.000.000/0000-00' : '000.000.000-00' ) as unknown as number;
+            //     return x;
+            // })
         });
         this.subscription.push(list);
 

@@ -92,7 +92,13 @@ export class Table {
                 value = this.currency.transform(value.toString(), 'BRL', '', col.decimal) + '%';
             } else if (col.maskType == MaskType.money) {
                 value = this.currency.transform(value, 'BRL', col.moeda, col.decimal)
-            } else if (col.maskType == MaskType.cnpj) {
+            } 
+            else if (col.maskType == MaskType.cpfcnpj) {
+                var pj = row['pj'];
+                value = value.toString().padStart(pj ? 14 : 11);
+                value = this.mask.applyMask(value, pj ? '00.000.000/0000-00' : '000.000.000-00');
+            } 
+            else if (col.maskType == MaskType.cnpj) {
                 value = this.mask.applyMask(value.toString().padStart(14, '0'), '00.000.000/0000-00');
             } else if (col.maskType == MaskType.cpf) {
                 value = this.mask.applyMask(value.toString().padStart(11, '0'), '000.000.000-00');
@@ -104,9 +110,10 @@ export class Table {
                 value = this.datePipe.transform(value, 'dd/MM/yyyy', 'UTC');
             } else if (col.maskType == MaskType.dateTime) {
                 value = this.datePipe.transform(value, 'dd/MM/yyyy \'às\' hh\'h\'mm', 'UTC');
-            } else if (col.maskType == MaskType.boolean) {
-                value = col.booleanValues[value]
-            } else if (col.maskType == MaskType.telefoneCelular) {
+            } else if (col.maskType == MaskType.options) {
+                value = col.values?.find(x => x.value == value).output;
+            }
+            else if (col.maskType == MaskType.telefoneCelular) {
                 value = this.mask.applyMask(value.toString(), (value.toString().length == 10 ? '(00)  0000-0000' : '(00) 0.0000-0000' ))
             } else if (col.maskType == MaskType.substring) {
                 if (col.substringLength && value.length > col.substringLength) {

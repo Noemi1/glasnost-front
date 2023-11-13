@@ -51,10 +51,7 @@ export class ListSharedComponent implements OnDestroy, OnChanges, AfterViewInit,
     ) {
         this.filters = this.columns.map(x => x.field);
 
-        var loading = this.table.loading.subscribe(res => {
-            this.loading = res;
-            console.log(res)
-        });
+        var loading = this.table.loading.subscribe(res => this.loading = res);
         this.subscription.push(loading);
 
         if (this.selectable) {
@@ -117,7 +114,7 @@ export class ListSharedComponent implements OnDestroy, OnChanges, AfterViewInit,
         return this.table.getCellData(row, col);
     }
     
-    gelCellTitle(row: any, col: Column) {
+    getCellTitle(row: any, col: Column) {
         const nestedProperties: string[] = col.field.split('.');
         let title: any = row;
         for (const prop of nestedProperties) {
@@ -140,6 +137,24 @@ export class ListSharedComponent implements OnDestroy, OnChanges, AfterViewInit,
 
     onPageChange(e: any) {
 
+    }
+
+    getOption(row: any, col: Column) {
+        const nestedProperties: string[] = col.field.split('.');
+        let value: any = row;
+        for (const prop of nestedProperties) {
+            value = value ? value[prop] ?? undefined : undefined;
+        }
+        value = col.values?.find(x => x.value == value);
+        return value
+    }
+
+    getValue(value: string, field: string) {
+        var a = JSON.parse(value);
+        var b = '';
+        if (a)
+            b = a[field];
+        return b;
     }
 }
 

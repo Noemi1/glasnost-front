@@ -40,7 +40,7 @@ export function getError(res: HttpErrorResponse) {
 
 function jsonKeyToLowercase(oldObj: any) {
     var keysUpper = Object.keys(oldObj)
-    var newObj = {}
+    var newObj: any = {}
     for(var i in keysUpper){
         newObj[keysUpper[i].toLowerCase()] = oldObj[keysUpper[i]]
     }
@@ -48,11 +48,11 @@ function jsonKeyToLowercase(oldObj: any) {
 }
 
   
-  function ConvertKeysToLowerCase(obj) {
+  function ConvertKeysToLowerCase(obj: any) {
       if (Object.prototype.toString.apply(obj) !== '[object Array]' && Object.prototype.toString.apply(obj) !== '[object Object]') {
           return obj;
       }
-      let output = {};
+      let output: any = {};
       for (let i in obj) {
           if (Object.prototype.toString.apply(obj[i]) === '[object Object]') {
              output[i.toLowerCase()] = ConvertKeysToLowerCase(obj[i]);

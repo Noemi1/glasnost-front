@@ -40,7 +40,7 @@ export var pessoaColumns: Column[] = [
     {
         field: 'documento',
         header: 'CPF/CNPJ',
-        maskType: MaskType.undefined,
+        maskType: MaskType.cpfcnpj,
         filterType: FilterType.text,
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
@@ -48,21 +48,6 @@ export var pessoaColumns: Column[] = [
         showOperator: false,
         filterMatchMode: FilterMatchMode.EQUALS,
     },
-    {
-        field: 'pj',
-        header: '',
-        maskType: MaskType.boolean,
-        filterType: FilterType.text,
-        filterDisplay: FilterDisplay.menu,
-        filterShowAddButton: false,
-        filterShowMatchMode: false,
-        showOperator: false,
-        filterMatchMode: FilterMatchMode.EQUALS,
-        booleanValues: {
-            'true': 'Empresa',
-            'false': 'Pessoa',
-        }
-    }, 
     {
         field: 'email',
         header: 'E-mail',
@@ -75,4 +60,19 @@ export var pessoaColumns: Column[] = [
         showOperator: false,
         filterMatchMode: FilterMatchMode.EQUALS,
     },
+    {
+        field: 'pj',
+        header: 'PJ',
+        maskType: MaskType.options,
+        filterType: FilterType.text,
+        filterDisplay: FilterDisplay.menu,
+        filterShowAddButton: false,
+        filterShowMatchMode: false,
+        showOperator: false,
+        filterMatchMode: FilterMatchMode.EQUALS,
+        values: [
+            { value: true, output: 'Empresa', class: 'flag-yellow' },
+            { value: false, output: 'Pessoa', class: 'flag-grey' },
+        ]
+    }, 
 ]

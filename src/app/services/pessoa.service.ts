@@ -39,7 +39,40 @@ export class PessoaService {
     }
 
     get(id: number) {
-        return this.http.get<Pessoa>(`${this.url}/pessoa/${id}`, { headers: new HttpHeaders({ 'loading': 'true' }) });
+        // return this.http.get<Pessoa>(`${this.url}/pessoa/${id}`, { headers: new HttpHeaders({ 'loading': 'true' }) });
+        return new Observable<Pessoa>(observer => {
+            var item = Object.assign({}, this.list.value.find(x => x.id == id));
+            if (item)
+                observer.next(item);
+            else
+                observer.error('Pessoa não encontrada.');
+            observer.complete();
+
+        });
+    }
+
+    getByIdAndDoc(id: number, doc: number) {
+        return new Observable<Pessoa>(observer => {
+            var item = Object.assign({}, this.list.value.find(x => x.id == id && x.documento == doc));
+            if (item)
+                observer.next(item);
+            else
+                observer.error('Pessoa não encontrada.');
+            observer.complete();
+        });
+    }
+
+    validateDocNotIncluded(id: number, documento: number) {
+        return new Observable<Pessoa>(observer => {
+            console.log(id, documento)
+            var item = this.list.value.find(x => {
+                console.log(x.id, x.documento)
+                return x.id != id && x.documento == documento
+            });
+            item = item ? Object.assign({}, item) : undefined;
+            observer.next(item);
+            observer.complete();
+        });
     }
 
     create(request: Pessoa) {

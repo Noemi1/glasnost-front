@@ -1,5 +1,5 @@
 
-export function validaCPF(doc: number) {
+export function validateCPF(doc: number) {
     var cpf: string = doc.toString();
     if (cpf.length > 11)
         return false;

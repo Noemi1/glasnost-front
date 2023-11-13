@@ -283,42 +283,6 @@ a.btn-pink.disabled:not([href]) {
     border: .25em solid rgb(var(--primary));
     border-right-color: transparent;
 }
-
-.btn-success,
-.btn-success:not([href]) {
-    color: #fff;
-    background-color: rgb(var(--primary));
-    border-color: rgb(var(--primary));
-}
-
-.btn-success:hover {
-    color: #fff;
-    background-color: #e34f05;
-    border-color: #e34f05;
-}
-
-.btn-success:not(:disabled):not(.disabled).active,
-.btn-success:not(:disabled):not(.disabled):active,
-.show>.btn-success.dropdown-toggle {
-    color: #fff;
-    background-color: #e34f05;
-    border-color: #e34f05;
-}
-
-.btn-check:focus+.btn-success,
-.btn-success:focus {
-    color: #fff;
-    background-color: #e34f05;
-    border-color: #e34f05;
-    box-shadow: 0 0 0 2px rgb(255 85 0);
-}
-
-.btn-success:not(:disabled):not(.disabled).active:focus,
-.btn-success:not(:disabled):not(.disabled):active:focus,
-.show>.btn-success.dropdown-toggle:focus {
-    box-shadow: 0 0 0 3px rgb(255 85 0 / 38%), -1px -2px 4px -1px #ffffff57 inset;
-}
-
 .btn-grey-light,
 .btn-grey-light:not([href]) {
     background-color: #e6e6e6;
