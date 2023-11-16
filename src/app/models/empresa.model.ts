@@ -10,18 +10,18 @@ export class EmpresaList extends Basic {
 }
 
 export class Empresa extends Basic {
-    cnpj: number = 0;
+    cnpj: number = '' as unknown as number;
     razaoSocial: string = '';
     nomeFantasia: string = '';
     telefoneComercial: string = '';
     celular: string = '';
     contato: string = '';
     email: string = '';
-    tipo_Id: number = '' as unknown as number;
+    tipo_Id: number = undefined as unknown as number;
     diligenciaPrevia: boolean = false;
-    riscoCompliance_Id: number = '' as unknown as number;
+    riscoCompliance_Id: number = undefined as unknown as number;
     escopoResumido: string = '';
-    cep: number = 0;
+    cep: number = '' as unknown as number;
     logradouro: string = '';
     numero: string = '';
     complemento: string = '';
@@ -32,8 +32,19 @@ export class Empresa extends Basic {
     cnaes: number[] = [];
 }
 
+export class EmpresaRiscoCompliance extends Basic {
+    nome: string = '';
+}
 
-export var acionistaColumns: Column[] = [
+export class EmpresaTipo extends Basic {
+    nome: string = '';
+}
+export class EmpresaCnae extends Basic {
+    codigo: string = '';
+    descricao: string = '';
+}
+
+export var empresaColumns: Column[] = [
     {
         field: 'id',
         header: 'Id',

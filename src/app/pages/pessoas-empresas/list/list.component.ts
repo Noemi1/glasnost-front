@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { faBars, faList } from '@fortawesome/free-solid-svg-icons';
 import { MaskApplierService } from 'ngx-mask';
 import { Subscription, lastValueFrom } from 'rxjs';
@@ -13,7 +13,7 @@ import { Table } from 'src/app/utils/table';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent {
+export class ListComponent implements OnDestroy {
     faBars = faBars;
     columns = pessoaColumns;
     list: Pessoa[] = [];
@@ -45,5 +45,8 @@ export class ListComponent {
         });
         this.subscription.push(selected);  
 
+    }
+    ngOnDestroy(): void {
+        this.subscription.forEach(x => x.unsubscribe());
     }
 }

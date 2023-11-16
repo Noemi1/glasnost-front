@@ -74,5 +74,20 @@ export var pessoaColumns: Column[] = [
             { value: true, output: 'Empresa', class: 'flag-yellow' },
             { value: false, output: 'Pessoa', class: 'flag-grey' },
         ]
+    },
+    {
+        field: 'ativo',
+        header: '',
+        maskType: MaskType.options,
+        filterType: FilterType.text,
+        filterDisplay: FilterDisplay.menu,
+        filterShowAddButton: false,
+        filterShowMatchMode: false,
+        showOperator: false,
+        filterMatchMode: FilterMatchMode.EQUALS,
+        values: [
+            { value: true, output: 'Ativo', class: 'flag-grey' },
+            { value: false, output: 'Inativo', class: 'flag-danger' },
+        ]
     }, 
 ]

@@ -18,6 +18,7 @@ export class HeaderComponent implements OnDestroy, AfterViewInit {
     faKey = faKey;
     faUser = faUser;
     menuHeaderOpen = false;
+    menuAsideOpen: boolean = false;
     userLogado?: Account;
     nomeAbreviado = '';
     perfil = '';
@@ -31,6 +32,8 @@ export class HeaderComponent implements OnDestroy, AfterViewInit {
         this.nomeAbreviado = 'Noemi C. Almeida'
         var menuHeaderOpen = this.header.menuHeaderOpen.subscribe(res => this.menuHeaderOpen = res);
         this.subscription.push(menuHeaderOpen);
+        var open = this.header.menuAsideOpen.subscribe(res => this.menuAsideOpen = res);
+        this.subscription.push(open);
 
 
     }

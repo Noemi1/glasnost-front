@@ -8,7 +8,7 @@ import { Table } from "./table";
     providedIn: 'root'
 })
 export class Header {
-    open = new BehaviorSubject<boolean>(false);
+    menuAsideOpen = new BehaviorSubject<boolean>(false);
     menuHeaderOpen = new BehaviorSubject<boolean>(false);
 
     constructor(
@@ -21,17 +21,17 @@ export class Header {
     public get aside(): boolean {
         var a = localStorage.getItem('navigation') ? this.crypto.decrypt(localStorage.getItem('navigation')) as boolean : false;
         this.setMenuAside(a);
-        return this.open.value;
+        return this.menuAsideOpen.value;
     }
 
     toggleMenuAside(): void {
-        this.setMenuAside(!this.open.value);
+        this.setMenuAside(!this.menuAsideOpen.value);
     }
 
     setMenuAside(value: boolean) {
         var encryted = this.crypto.encrypt(value) ?? '';
         localStorage.setItem('navigation', encryted);
-        this.open.next(value);
+        this.menuAsideOpen.next(value);
     }
 
 

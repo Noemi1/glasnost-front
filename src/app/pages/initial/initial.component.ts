@@ -38,7 +38,7 @@ export class InitialComponent implements OnDestroy {
         private swipeService: SwipeService
     ) {
         var getOpen = this.modal.getOpen().subscribe(res => this.modalOpen = res);
-        var open = this.header.open.subscribe(res => this.navigationOpen = res);
+        var open = this.header.menuAsideOpen.subscribe(res => this.navigationOpen = res);
         var loading = this.table.loading.subscribe(res => this.loading = res);
         this.subscription.push(getOpen);
         this.subscription.push(open);

@@ -10,7 +10,9 @@
     flex: 1 0 auto;
     margin-bottom: 5px;
 }
-
+.form-group.col.radiobutton {
+    flex: 0 0 0%;
+}
 label {
     display: inline-block;
 }
@@ -76,6 +78,14 @@ input {
     background-position: 100% center;
     padding: 12px 0px 12px 0px;
 }
+
+.form-control.form-control-loading {
+    background-image: url(./../img/loading.gif) !important;
+    background-size: 15px;
+    background-repeat: no-repeat;
+    background-position: right calc(10px) center;
+}
+
 
 .input-group-text {
     padding: 0 12px;

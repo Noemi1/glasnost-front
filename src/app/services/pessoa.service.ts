@@ -64,9 +64,7 @@ export class PessoaService {
 
     validateDocNotIncluded(id: number, documento: number) {
         return new Observable<Pessoa>(observer => {
-            console.log(id, documento)
             var item = this.list.value.find(x => {
-                console.log(x.id, x.documento)
                 return x.id != id && x.documento == documento
             });
             item = item ? Object.assign({}, item) : undefined;

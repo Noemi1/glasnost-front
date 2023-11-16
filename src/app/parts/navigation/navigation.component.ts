@@ -29,7 +29,7 @@ export class NavigationComponent implements OnDestroy {
     ) {
         this.menuOpen = this.header.aside;
 
-        var open = this.header.open.subscribe(res => this.menuOpen = res);
+        var open = this.header.menuAsideOpen.subscribe(res => this.menuOpen = res);
         this.subscription.push(open);
         this.setMenu();
 
@@ -75,7 +75,7 @@ export class NavigationComponent implements OnDestroy {
             },
             {
                 id: i++,
-                label: 'Gestão do Cliente',
+                label: 'Gestão da Empresa',
                 collapsed: true,
                 visible: true,
                 items: [
@@ -186,8 +186,8 @@ export class NavigationComponent implements OnDestroy {
                     },
                     {
                         id: i++,
-                        label: 'Clientes',
-                        routerLink: "/clientes",
+                        label: 'Empresas',
+                        routerLink: "/empresas",
                         visible: true,
                     },
                     {
