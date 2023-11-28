@@ -77,24 +77,26 @@ export class RequestInterceptor implements HttpInterceptor {
                     else if (data instanceof HttpResponse) {
                         if ([200, 204, 201].includes(data.status)) {
                             if (request.method == 'POST') {
-                                this.toastr.success('Operação concluída com sucesso');
+                                this.toastr.success('Operação concluída com sucesso.');
                             }
                             else if (request.method == 'PUT') {
-                                this.toastr.success('Registro atualizado com sucesso');
+                                this.toastr.success('Registro atualizado com sucesso.');
                                 this.table.onRowUnselect();
                             }
                             else if (request.method == 'PATCH') {
-                                this.toastr.success('Registro atualizado com sucesso');
+                                this.toastr.success('Registro atualizado com sucesso.');
                                 this.table.onRowUnselect();
                             }
                             else if (request.method == 'DELETE') {
-                                this.toastr.success('Registro excluído com sucesso')
+                                this.toastr.success('Registro excluído com sucesso.')
                                 this.table.onRowUnselect();
                             }
                             else if (request.method == 'GET') {
                                 setTimeout(() => {
                                     this.table.goToCurrentPage();
                                 }, 100);
+                                this.table.loading.next(false)
+                                this.loadingUtils.loading.next(false);
                             }
 
                         }
@@ -115,6 +117,29 @@ export class RequestInterceptor implements HttpInterceptor {
                         this.toastr.error('Permissão negada.');
                     }
                     else if (notToastr.length == 0) {
+                        if (request.method == 'POST') {
+                            this.toastr.error('Não foi possível cadastrar novo registro.');
+                        }
+                        else if (request.method == 'PUT') {
+                            this.toastr.error('Não foi possível atualizar registro.');
+                            this.table.onRowUnselect();
+                        }
+                        else if (request.method == 'PATCH') {
+                            this.toastr.error('Não foi possível atualizar registro.');
+                            this.table.onRowUnselect();
+                        }
+                        else if (request.method == 'DELETE') {
+                            this.toastr.error('Não foi possível excluir registro.');
+                            this.table.onRowUnselect();
+                        }
+                        else if (request.method == 'GET') {
+                            this.toastr.error('Não foi possível carregar dados.');
+                            setTimeout(() => {
+                                this.table.goToCurrentPage();
+                            }, 100);
+                            this.table.loading.next(false)
+                            this.loadingUtils.loading.next(false);
+                        }
                         this.toastr.error(msg);
                     }
 
@@ -124,6 +149,7 @@ export class RequestInterceptor implements HttpInterceptor {
             }),
             // Log when response observable either completes or errors
             finalize(() => {
+                console.log('oi aaa')
                 this.table.loading.next(false)
                 this.loadingUtils.loading.next(false);
                 if (request.method == 'POST' || request.method == 'PUT' || request.method == 'DELETE' || loadingHeader == 'true') {

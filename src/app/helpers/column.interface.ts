@@ -10,12 +10,13 @@ export interface Column {
     filterType: FilterType, 
     filterDisplay: FilterDisplay,
     filterShowMatchMode?: boolean;
-    filterShowAddButton?: boolean;
     showOperator?: boolean;
+    filterShowAddButton?: boolean;
     filterMatchMode?: FilterMatchMode;
-    values?: any[];
     substringLength?: number; // Masktype.substring
     title?: string;
+    filterValue?: any;
+    values?: OptionValues[];
 }
 
 export enum FilterType {
@@ -32,6 +33,7 @@ export enum FilterDisplay {
 
 export enum MaskType {
     undefined,
+    number = 'number',
     money = 'money',
     percentage = 'percentage',
     date = 'date',
@@ -45,4 +47,12 @@ export enum MaskType {
     telefoneCelular = 'telefoneCelular',
     substring = 'substring',
     options = 'options',
+    mask = 'mask',
+}
+
+
+export class OptionValues {
+    output: string = '';
+    value: any;
+    class?: string;
 }

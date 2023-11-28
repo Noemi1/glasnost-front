@@ -1,13 +1,13 @@
 .cnaes-list {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     flex-flow: wrap;
 }
 
 .cnaes-item {
     position: relative;
     background-color: #ffe577;
-    border: 1px var(--yellow) solid;
+    border: 1px rgb(var(--yellow)) solid;
     padding: 10px;
     margin-bottom: 5px;
     margin-right: 5px;

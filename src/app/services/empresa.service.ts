@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { BehaviorSubject, Observable, map, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, lastValueFrom, map, of, tap } from 'rxjs';
 import { Crypto } from '../utils/crypto';
 import { environment } from 'src/environments/environment';
 import { Table } from '../utils/table';
@@ -51,6 +51,7 @@ export class EmpresaService {
             error: res => this.toastr.error('Não foi possível carregar risco compliance.')
         }));
     }
+
     getTipos() {
         this.table.loading.next(true);
         return this.http.get<EmpresaTipo[]>(`${this.url}/empresa/tipo`, { headers: new HttpHeaders({ 'loading': 'false' })})
@@ -80,15 +81,40 @@ export class EmpresaService {
     }
 
     create(request: Empresa) {
-        return this.http.post<Empresa>(`${this.url}/empresa`, request);
+        return this.http.post<Empresa>(`${this.url}/empresa`, request)
+        .pipe(tap({
+            next: res => {
+                lastValueFrom(this.getList());
+            },
+        }));
     }
 
     edit(request: Empresa) {
-        return this.http.put<Empresa>(`${this.url}/empresa`, request);
+        return this.http.put<Empresa>(`${this.url}/empresa`, request)
+        .pipe(tap({
+            next: res => {
+                lastValueFrom(this.getList());
+            },
+        }));
     }
 
     delete(id: number) {
-        return this.http.delete(`${this.url}/empresa/${id}`);
+        return this.http.delete(`${this.url}/empresa/${id}`)
+        .pipe(tap({
+            next: res => {
+                lastValueFrom(this.getList());
+            },
+        }));
+    }
+
+    habilitar(id: number, habilitar: boolean) {
+        return this.http.patch<void>(`${this.url}/empresa/${id}/${habilitar}`, {})
+        .pipe(tap({
+            next: res => {
+                lastValueFrom(this.getList());
+            },
+            error: res => this.toastr.error(`Não foi possível ${ habilitar ? 'habilitar' : 'desabilitar' } registro.`)
+        }));
     }
 
     validaCNPJ(id: number, cnpj: number) {

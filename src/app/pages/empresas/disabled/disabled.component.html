@@ -1,12 +1,14 @@
 <ng-template #icon>
-    <fa-icon [icon]="faTrash" ></fa-icon>
+    <fa-icon [icon]="faCheckSquare" *ngIf="habilitar"></fa-icon>
+    <fa-icon [icon]="faTimesRectangle" *ngIf="!habilitar"></fa-icon>
 </ng-template>
 <ng-template #template>
     <form #form="ngForm" (ngSubmit)="send()" class="px-3">
     
         <div class="row">
             <p>Tem certeza que deseja 
-                <strong class="text-danger" >excluir</strong>
+                <strong class="text-success" *ngIf="habilitar">Habilitar</strong>
+                <strong class="text-danger" *ngIf="!habilitar">Desabilitar</strong>
                  esse registro?
             </p>
         </div>
@@ -19,7 +21,8 @@
                 </div>
                 <button class="btn btn-success mr-0 ms-auto" [disabled]="form.invalid || loading ">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                    <span>Excluir</span>
+                    <span *ngIf="habilitar">Habilitar</span>
+                    <span *ngIf="!habilitar">Desabilitar</span> 
                 </button>
             </div>
         </div>

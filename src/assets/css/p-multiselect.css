@@ -48,16 +48,16 @@
 .p-icon-wrapper {
     display: inline-flex;
 }
-.p-overlay {
-    position: absolute;
+.form-control.p-multiselect .p-overlay {
+    /* position: absolute;
     top: 0;
     left: 0;
-    min-width: unset!important;
+    min-width: unset!important; */
     max-width: 100%;
     box-shadow: 1px 1px 7px 0px #0000005c;
     border: 1px #bbbbbb solid;
 }
-.p-overlay-content {
+.form-control.p-multiselect  .p-overlay-content {
     transform-origin: inherit;
 }
 .p-multiselect-panel {
@@ -157,15 +157,16 @@
 }
 .p-multiselect-panel .p-multiselect-items {
     padding: 0.75rem 0;
+    width: 100%;
 }
 .p-multiselect-item {
     cursor: pointer;
     display: flex;
     align-items: center;
     font-weight: 400;
-    white-space: nowrap;
+    white-space: unset;
     position: relative;
-    overflow: hidden;
+    overflow: unset;
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item {
     margin: 0;

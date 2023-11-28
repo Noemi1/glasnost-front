@@ -1,22 +1,25 @@
 import { AfterViewInit, Component, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { faCheckSquare, faTimesRectangle } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, lastValueFrom } from 'rxjs';
+import { Empresa } from 'src/app/models/empresa.model';
 import { EmpresaService } from 'src/app/services/empresa.service';
 import { Crypto } from 'src/app/utils/crypto';
 import { getError } from 'src/app/utils/error';
 import { Modal } from 'src/app/utils/modal-open';
 
 @Component({
-  selector: 'app-delete',
-  templateUrl: './delete.component.html',
-  styleUrls: ['./delete.component.css']
+    selector: 'app-disabled',
+    templateUrl: './disabled.component.html',
+    styleUrls: ['./disabled.component.css']
 })
-export class DeleteComponent implements AfterViewInit, OnDestroy{
+export class DisabledComponent implements AfterViewInit, OnDestroy {
 
-    faTrash = faTrash;
+    faTimesRectangle = faTimesRectangle;
+    faCheckSquare = faCheckSquare;
     id: number = 0;
+    habilitar = true;
     erro: string = '';
     loading = false;
 
@@ -28,9 +31,11 @@ export class DeleteComponent implements AfterViewInit, OnDestroy{
 
     constructor(
         private activatedRoute: ActivatedRoute,
+        private toastr: ToastrService,
         private modal: Modal,
         private crypto: Crypto,
         private empresaService: EmpresaService,
+        private router: Router,
     ) {
         this.routeBackOptions = { relativeTo: this.activatedRoute };
     }
@@ -39,10 +44,18 @@ export class DeleteComponent implements AfterViewInit, OnDestroy{
     ngAfterViewInit(): void {
         this.modal.icon.next(this.icon);
         this.modal.template.next(this.template)
-        this.modal.style.next({ 'max-width': '400px' })
+        this.modal.style.next({ 'max-width': '300px' })
         this.modal.activatedRoute.next(this.activatedRoute);
-        this.modal.title.next('Excluir empresa');
 
+        this.activatedRoute.title.subscribe(res => {
+            if (res?.includes('Habilitar')) {
+                this.modal.title.next('Habilitar empresa');
+                this.habilitar = true;
+            } else {
+                this.modal.title.next('Desabilitar empresa');
+                this.habilitar = false;
+            }
+        })
         var params = this.activatedRoute.params.subscribe(res => {
             if (res['id']) {
                 this.modal.routerBack.next(['../../']);
@@ -65,17 +78,17 @@ export class DeleteComponent implements AfterViewInit, OnDestroy{
     voltar() {
         this.modal.voltar(this.modal.routerBack.value, this.routeBackOptions);
     }
-	send() {
-		this.erro = '';
-		this.loading = true;
-        lastValueFrom(this.empresaService.delete(this.id))
-			.then(res => {
-				this.voltar();
-			})
-			.catch(err => {
-				this.erro = getError(err);
+    send() {
+        this.erro = '';
+        this.loading = true;
+        lastValueFrom(this.empresaService.habilitar(this.id, this.habilitar))
+            .then(res => {
+                this.voltar();
+            })
+            .catch(err => {
                 this.loading = false;
-			})
-	}
+                this.erro = getError(err);
+            })
+    }
 
 }

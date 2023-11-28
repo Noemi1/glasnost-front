@@ -57,3 +57,6 @@
 .pi-chevron-down:before {
     content: "\e902";
 }
+.p-icon-wrapper {
+    display: inline-flex;
+}

@@ -2,34 +2,62 @@
 import { HttpErrorResponse } from "@angular/common/http";
 
 export function getError(res: HttpErrorResponse) {
-    var msg = "Ocorreu um erro, mas não foi possível localizar a causa.";
+var msg = "Ocorreu um erro, mas não foi possível localizar a causa.";
+                    console.log('msg', msg);
 
     res = ConvertKeysToLowerCase(res) as HttpErrorResponse;
 
+    console.log('res', res, res.error.errors);
     if (res) {
-        if (res.error && res.error.message)
+        console.log('res if');
+        if (res.error && res.error.message) {
             msg = res.error.message;
-        
-        else if (res.error && res.error.innerexception && res.error.innerexception.innerexception)
+            console.log('1');
+        }
+        else if (res.error && res.error.title)
+        {
+            console.log('2');
+            msg = res.error.title;
+        }
+        else if (res.error && res.error.innerexception && res.error.innerexception.innerexception){
+            console.log('3');
             msg = res.error.InnerException.InnerException;
+        }
         
-        else if (res.error && res.error.innerexception && res.error.innerexception.message)
+        else if (res.error && res.error.innerexception && res.error.innerexception.message) {
+            console.log('4');
             msg = res.error.InnerException.Message;
+        }
         
-        else if (res.error && typeof res.error == 'string')
+        else if (res.error && typeof res.error == 'string') {
+            console.log('5');
+
             msg = res.error;
+        }
         
-        else if (res.error && res.error.innerexception)
+        else if (res.error && res.error.innerexception) {
+            console.log('6');
+
             msg = res.error.innerexception;
+        }
         
-        else if (res.message)
+        else if (res.message) {
+            console.log('7');
+
             msg = res.message;
+        }
         
-        else if (res.error.error)
+        else if (res.error.error) {
+            console.log('8');
+
             msg = res.error.error;
+        }
     
-        else if (res.error)
+        else if (res.error) {
+            console.log('9');
+
             msg = res.error;
+        }
         
         else
             msg = "Ocorreu um erro no processamento da requisição.";

@@ -21,6 +21,7 @@ import { AcionistasComponent } from './pages/acionistas/acionistas.component';
 import { FormComponent } from './pages/acionistas/form/form.component';
 import { ListComponent } from './pages/acionistas/list/list.component';
 import { DeleteComponent } from './pages/acionistas/delete/delete.component';
+import { RequestInterceptor } from './helpers/request.interceptor';
 
 registerLocaleData(localePt);
 
@@ -51,7 +52,7 @@ registerLocaleData(localePt);
         DatePipe,
         { provide: LOCALE_ID, useValue: 'pt-BR' },
         { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
-        //   { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
+          { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
         //   { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 
     ],

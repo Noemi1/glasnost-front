@@ -99,3 +99,8 @@ input {
 .input-group {
     overflow: hidden;
 }
+
+.form-control::placeholder {
+    color: #83898e;
+    opacity: 1
+}

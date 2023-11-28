@@ -11,12 +11,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxMaskModule } from 'ngx-mask';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { DisabledComponent } from './disabled/disabled.component';
 
 @NgModule({
   declarations: [
     ListComponent,
     FormComponent,
-    DeleteComponent
+    DeleteComponent,
+    DisabledComponent
   ],
   imports: [
     CommonModule,

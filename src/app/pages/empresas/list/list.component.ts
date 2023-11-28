@@ -37,8 +37,13 @@ export class ListComponent implements OnDestroy {
             if (res) {
                 this.tableLinks = [
                     { label: 'Editar', routePath: ['editar'], paramsFieldName: ['id'] },
-                    { label: 'Exluir', routePath: ['excluir'], paramsFieldName: ['id'] },
+                    { label: 'Excluir', routePath: ['excluir'], paramsFieldName: ['id'] },
                 ];
+                if (res.ativo == 'Habilitado') {
+                    this.tableLinks.push({ label: 'Desabilitar', routePath: ['desabilitar'], paramsFieldName: ['id'] })
+                } else {
+                    this.tableLinks.push({ label: 'Habilitar', routePath: ['habilitar'], paramsFieldName: ['id'] })
+                }
                 this.tableLinks = this.table.encryptParams(this.tableLinks);
             }
         });

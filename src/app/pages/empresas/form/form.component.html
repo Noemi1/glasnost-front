@@ -2,7 +2,7 @@
     <!-- <fa-icon [icon]="faUser"></fa-icon> -->
 </ng-template>
 <ng-template #template>
-    <form #form="ngForm" (ngSubmit)="send(form)" class="px-2">
+    <form #form="ngForm" (ngSubmit)="send(form)" class="px-3">
         <div class="row">
             <div class="form-group col-lg-8 col-md-8 col-sm-6 col-12">
                 <label for="razaoSocial">Razão Social: <span class="text-danger">*</span></label>
@@ -149,7 +149,8 @@
                 <div class="d-flex" style="height: 35px">
                     <div class="d-flex align-items-center me-2" *ngFor="let item of riscoCompliance">
                         <p-radioButton [inputId]="'riscoCompliance_Id_' + item.nome" 
-                            name="riscoCompliance_Id" 
+                            name="riscoCompliance_Id"
+                            [styleClass]="item.nome == 'Alto' ? 'radio-danger' : item.nome == 'Medio' ? 'radio-warning' : 'radio-green' " 
                             [value]="item.id" 
                             [(ngModel)]="object.riscoCompliance_Id"
                             required></p-radioButton>
@@ -186,7 +187,7 @@
                             [(ngModel)]="object.escopoResumido"></textarea>
             </div>
         </div>
-
+<!-- Endereço -->
         <div class="row mt-2">
             <div class="border-bottom col-12 pb-2">
                 <h6>Endereço</h6>
@@ -306,7 +307,9 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+<!-- CNAES -->
+
+        <div class="row mt-2">
             <div class="form-group col-12">
                 <label for="cnaes">Cnaes: <span class="text-danger">*</span></label>
                 <p-multiSelect styleClass="form-control"
@@ -314,9 +317,12 @@
                                 [options]="cnaes" 
                                 [(ngModel)]="cnaesSelected" 
                                 (ngModelChange)="setCnaes()"
-                                optionLabel="codigo"
+                                optionLabel="filterBy"
                                 placeholder="Selecione um cnae"
-                                required>
+                                required
+                                [filter]="true"
+                                [filterPlaceHolder]="'Buscar'"
+                                [filterBy]="'filterBy'">
                     <ng-template let-item pTemplate="item">
                         <div>
                             <p>Código: <strong>{{item.codigo}}</strong></p>

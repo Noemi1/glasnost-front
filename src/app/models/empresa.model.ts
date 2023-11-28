@@ -42,6 +42,7 @@ export class EmpresaTipo extends Basic {
 export class EmpresaCnae extends Basic {
     codigo: string = '';
     descricao: string = '';
+    filterBy: string = '';
 }
 
 export var empresaColumns: Column[] = [
@@ -77,5 +78,20 @@ export var empresaColumns: Column[] = [
         filterShowMatchMode: false,
         showOperator: false,
         filterMatchMode: FilterMatchMode.EQUALS,
+    },
+    {
+        field: 'ativo',
+        header: 'Status',
+        maskType: MaskType.options,
+        filterType: FilterType.text,
+        filterDisplay: FilterDisplay.menu,
+        filterShowAddButton: false,
+        filterShowMatchMode: false,
+        showOperator: false,
+        filterMatchMode: FilterMatchMode.EQUALS,
+        values: [
+            { value: true, output: 'Habilitado', class: 'flag-green' },
+            { value: false, output: 'Desabilitado', class: 'flag-danger' },
+        ]
     },
 ]

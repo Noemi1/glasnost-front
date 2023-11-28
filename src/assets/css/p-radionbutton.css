@@ -41,3 +41,19 @@ p-radiobutton {
     display: block;
     color: #fff;
 }
+
+
+.radio-danger.p-radiobutton .p-radiobutton-box.p-highlight {
+    background-color: var(--bs-red);
+    border-color: var(--bs-red);
+}
+
+.radio-green.p-radiobutton .p-radiobutton-box.p-highlight {
+    background-color: var(--bs-green);
+    border-color: var(--bs-green);
+}
+
+.radio-warning.p-radiobutton .p-radiobutton-box.p-highlight {
+    background-color: var(--bs-warning);
+    border-color: var(--bs-warning);
+}

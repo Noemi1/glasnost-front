@@ -1,9 +1,9 @@
 @import url('./assets/css/fonts.css');
 
 :root {
-    --yellow: rgb(220, 160, 1);
-    --yellow-dark: #dca001;
-    --dark: #0c0c0c;
+    --yellow: 220, 160, 1;
+    --yellow-dark: 218, 160, 1;
+    --dark: 13, 13, 13;
     --light: #efefef;
     --red: #e81717;
     --green: #1a9d24;
@@ -13,7 +13,7 @@
     --secondary: 18 17 31;
     --secondary-light: 23 23 35;
     --secondary-dark: 5 5 12;
-    --grey: 59 59 71;
+    --grey: 26, 26, 26;
 }
 
 * {
@@ -29,7 +29,7 @@
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: var(--dark);
+    background-color: rgb(var(--dark));
     transition: .5s;
 }
 

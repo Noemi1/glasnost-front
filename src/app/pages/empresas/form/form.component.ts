@@ -73,10 +73,16 @@ export class FormComponent implements OnDestroy, AfterViewInit {
         
         // CNAES
         lastValueFrom(this.empresaService.getCnae())
-        .then(res => this.cnaes = res)
+        .then(res => {
+            this.cnaes = res;
+            this.setCnaeFilterBy();
+        })
         .finally(() => this.loadingCnaes = false);
 
-        var cnaes = this.empresaService.cnaes.subscribe(res => this.cnaes = res)
+        var cnaes = this.empresaService.cnaes.subscribe(res => {
+            this.cnaes = res;
+            this.setCnaeFilterBy();
+        })
 		this.subscription.push(cnaes);
 	}
 
@@ -95,6 +101,7 @@ export class FormComponent implements OnDestroy, AfterViewInit {
 				lastValueFrom(this.empresaService.get(this.object.id))
 					.then(obj => {
 						this.object = obj;
+                        this.setCnaeSelected();
 						setTimeout(() => {
 							this.modal.setOpen(true)
 						}, 100);
@@ -221,7 +228,16 @@ export class FormComponent implements OnDestroy, AfterViewInit {
             input.control.setErrors({ viacepError: res });
         })
     }
-    alert(e: any) {
-        console.log(e)
+
+    setCnaeFilterBy() {
+        this.cnaes = this.cnaes.map(x => {
+            x.filterBy = x.codigo + x.descricao;
+            return x;
+        });
     }
+
+    setCnaeSelected() {
+        this.cnaesSelected = this.cnaes.filter(x => this.object.cnaes.includes(x.id));
+    }
+
 }

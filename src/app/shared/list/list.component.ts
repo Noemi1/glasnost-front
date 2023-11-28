@@ -1,8 +1,9 @@
-import { AfterViewChecked, AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, Input, OnChanges, OnDestroy, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { faEllipsisV, faFilter, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { ColumnFilter } from 'primeng/table';
 import { Subscription } from 'rxjs';
-import { Column, MaskType } from 'src/app/helpers/column.interface';
+import { Column, FilterDisplay, FilterType, MaskType } from 'src/app/helpers/column.interface';
 import { MenuTableLink } from 'src/app/helpers/menu-links.interface';
 import { Role } from 'src/app/models/account-perfil.model';
 import { Table } from 'src/app/utils/table';
@@ -12,7 +13,7 @@ import { Table } from 'src/app/utils/table';
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.css']
 })
-export class ListSharedComponent implements OnDestroy, OnChanges, AfterViewInit, AfterViewChecked {
+export class ListSharedComponent implements OnDestroy, OnChanges, AfterViewInit, AfterViewChecked /*, AfterViewChecked*/ {
     maskType = MaskType;
     faFilter = faFilter;
     faTimes = faTimes;
@@ -24,32 +25,32 @@ export class ListSharedComponent implements OnDestroy, OnChanges, AfterViewInit,
     @Input() paginator: boolean = true;
     @Input() sortTable = true;
     @Input() menuTable = true;
-    @Input() createLink: string[] = [];
-    @Input() canCreate = true;
     @Input() selectable = true;
-    @Input() columns = [{ field: 'id', header: 'Id', filterType: 'text', filterDisplay: 'menu' },];
+    @Input() columns: Column[] = [];
     @Input() tableLinks: MenuTableLink[] = [];
-    @Input() onCreate: any;
+    @Input() showResultLength = true;
+
+    @Input() topActions: TemplateRef<any>;
+    @Input() tableFooter: TemplateRef<any>;
+    @Input() rowActions: TemplateRef<any>;
+
     selected?: any;
-    // selectedItems: any[] = [];
     filters: string[] = [];
     routeRow: string[] = [];
     loading = false;
     Role = Role;
 
     subscription: Subscription[] = [];
-
     first = 2;
-    
-    currentBooleanFilter: any;
-    currentCPFFilter: any;
-    currentDateFilter: Date;
+    formatedList: any = [];
+
+    @ViewChild('rowActions') rowActionsTemplate: TemplateRef<any>;
 
     constructor(
         private table: Table,
-        private router: Router
+        private router: Router,
     ) {
-        this.filters = this.columns.map(x => x.field);
+        this.table.currentPage.next(1);
 
         var loading = this.table.loading.subscribe(res => this.loading = res);
         this.subscription.push(loading);
@@ -66,95 +67,98 @@ export class ListSharedComponent implements OnDestroy, OnChanges, AfterViewInit,
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (changes['list']) 
+        if (changes['list']) {
             this.list = changes['list'].currentValue;
-        if (changes['selectable'])
-            this.selectable = changes['selectable'].currentValue;
-        if (changes['createLink'])
-            this.createLink = changes['createLink'].currentValue;
-        if (changes['filterLink'])
-            this.filterLink = changes['filterLink'].currentValue;
-        if (changes['filterTable'])
-            this.filterTable = changes['filterTable'].currentValue;
-        if (changes['paginator'])
-            this.paginator = changes['paginator'].currentValue;
-        if (changes['sortTable'])
-            this.sortTable = changes['sortTable'].currentValue;
-        if (changes['menuTable'])
-            this.menuTable = changes['menuTable'].currentValue;
+            this.formatedList = changes['list'].currentValue
+            if (this.list.length > 0 && this.columns.length > 0) {
+                this.formata();
+            }
+        }
         if (changes['columns']) {
             this.columns = changes['columns'].currentValue;
             this.filters = this.columns.map(x => x.field)
         }
-        if (changes['canCreate'])
-            this.canCreate = changes['canCreate'].currentValue;
-        if (changes['onCreate']) 
-            this.onCreate = changes['onCreate'].currentValue;
-        if (changes['tableLinks'])
-            this.tableLinks = changes['tableLinks'].currentValue;
-    }
-    ngAfterViewInit(): void {
-    }
-    
-    ngAfterViewChecked(): void {
-        setTimeout(() => {
-            this.table.currentPageChange();
-        }, 200);
+        if (changes['selectable']) this.selectable = changes['selectable'].currentValue;
+        if (changes['filterLink']) this.filterLink = changes['filterLink'].currentValue;
+        if (changes['filterTable']) this.filterTable = changes['filterTable'].currentValue;
+        if (changes['paginator']) this.paginator = changes['paginator'].currentValue;
+        if (changes['sortTable']) this.sortTable = changes['sortTable'].currentValue;
+        if (changes['menuTable']) this.menuTable = changes['menuTable'].currentValue;
+        if (changes['tableLinks']) this.tableLinks = changes['tableLinks'].currentValue;
+        if (changes['topActions']) this.topActions = changes['topActions'].currentValue;
+        if (changes['tableFooter']) this.tableFooter = changes['tableFooter'].currentValue;
+        if (changes['rowActions']) this.rowActions = changes['rowActions'].currentValue;
+        if (changes['showResultLength']) this.showResultLength = changes['showResultLength'].currentValue;
     }
 
+    ngAfterViewInit(): void { }
+
+    ngAfterViewChecked(): void {
+        this.table.currentPageChange();
+    }
+
+
+    formata() {
+        console.log('formata')
+        this.list.forEach((row: any) => {
+            this.columns.forEach(col => {
+                try {
+                    var a = this.formatCellData(row, col);
+                    row[col.field] = a;
+                } catch (e) {
+                    console.error(e)
+                }
+                return row;
+            })
+        })
+
+        this.formatedList = Object.assign([], this.list);
+    }
+
+
     onRowSelect(event: any) {
+        console.log('onRowSelect')
         this.table.onRowSelect(event);
     }
 
     onRowUnselect(event: any) {
+        console.log('onRowUnselect')
         this.table.onRowUnselect(event)
     }
 
-    getCellData(row: any, col: Column): any {
-        return this.table.getCellData(row, col);
-    }
-    
-    getCellTitle(row: any, col: Column) {
-        const nestedProperties: string[] = col.field.split('.');
-        let title: any = row;
-        for (const prop of nestedProperties) {
-            title = title ? title[prop] ?? undefined : undefined;
-        }
-        return title;
-    }
-
-    create() {
-        if (this.canCreate) {
-            if (this.onCreate) {
-                this.onCreate();
-            }
-        }
-    }
-
-    eval(str:any, item: any) {
-        return eval(str) as boolean
-    }
-
-    onPageChange(e: any) {
-
-    }
-
-    getOption(row: any, col: Column) {
-        const nestedProperties: string[] = col.field.split('.');
-        let value: any = row;
-        for (const prop of nestedProperties) {
-            value = value ? value[prop] ?? undefined : undefined;
-        }
-        value = col.values?.find(x => x.value == value);
+    formatCellData(row: any, col: Column) {
+        console.log('formatCellData')
+        var value = this.table.formatCellData(row, col);
         return value
     }
 
-    getValue(value: string, field: string) {
-        var a = JSON.parse(value);
-        var b = '';
-        if (a)
-            b = a[field];
-        return b;
+    getCellValue(row: any, col: Column) {
+        console.log('getCellValue')
+        return this.table.getCellValue(row, col);
+    }
+
+    primeNgDataFilter(value: Date, filterCallback: any, filter: ColumnFilter) {
+        console.log('primeNgDataFilter')
+        if (value) {
+            filterCallback(new Date(value));
+        } else {
+            filter.clearFilter();
+        }
+    }
+
+    evalRowActions(str: any, item: any) {
+        console.log('evalRowActions')
+        return eval(str) as boolean
+    }
+
+    filterCol(value: any, filter: any, filterEl: ColumnFilter) {
+        console.log('filterCol', value, filter, filterEl)
+        filter(value);
+        $(filterEl.el.nativeElement).find('.p-column-filter-menu-button').trigger('click');
+        setTimeout(() => {
+            $(filterEl.el.nativeElement).find('.p-column-filter-menu-button').trigger('click');
+        }, 50);
+
     }
 }
 
