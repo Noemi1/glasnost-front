@@ -38,7 +38,7 @@ export class ListComponent {
 
         this.table.currentPage.next(1);
 
-        lastValueFrom(this.pessoaService.getList())
+        // lastValueFrom(this.pessoaService.getList())
         var selected = this.table.selected.subscribe(res => {
             if (res) {
                 this.tableLinks = [

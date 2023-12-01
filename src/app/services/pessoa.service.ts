@@ -22,9 +22,9 @@ export class PessoaService {
     ) { }
 
 
-    getList() {
+    getList(empresaId: number, ativo?: boolean) {
         this.table.loading.next(true);
-        return this.http.get<Pessoa[]>(`${this.url}/pessoa/all/`, { headers: new HttpHeaders({ 'loading': 'false' })})
+        return this.http.get<Pessoa[]>(`${this.url}/pessoa/all/${empresaId}/${ativo}`, { headers: new HttpHeaders({ 'loading': 'false' })})
         .pipe(tap({
             next: list => {
                 list = list.map(x => {

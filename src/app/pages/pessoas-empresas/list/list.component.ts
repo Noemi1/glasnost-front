@@ -3,7 +3,9 @@ import { faBars, faList } from '@fortawesome/free-solid-svg-icons';
 import { MaskApplierService } from 'ngx-mask';
 import { Subscription, lastValueFrom } from 'rxjs';
 import { MenuTableLink } from 'src/app/helpers/menu-links.interface';
+import { EmpresaList } from 'src/app/models/empresa.model';
 import { Pessoa, pessoaColumns } from 'src/app/models/pessoa.model';
+import { EmpresaService } from 'src/app/services/empresa.service';
 import { PessoaService } from 'src/app/services/pessoa.service';
 import { Crypto } from 'src/app/utils/crypto';
 import { Table } from 'src/app/utils/table';
@@ -19,21 +21,32 @@ export class ListComponent implements OnDestroy {
     list: Pessoa[] = [];
     tableLinks: MenuTableLink[] = [];
     subscription: Subscription[] = [];
+    empresaSelected = new EmpresaList;
 
     constructor(
         private table: Table,
         public crypto: Crypto,
         public pessoaService: PessoaService,
         private mask: MaskApplierService,
+        private empresaService: EmpresaService,
     ) {
-        var list = this.pessoaService.list.subscribe(res => {
-            this.list = Object.assign([], res);
-        });
+        var list = this.pessoaService.list.subscribe(res => this.list = res);
         this.subscription.push(list);
+
+        var empresa = this.empresaService.empresaSelected.subscribe(async res => {
+            this.empresaSelected = res;
+            console.log(res)
+            if (res && res.id) {
+                console.log('oi')
+                await lastValueFrom(this.pessoaService.getList(res.id));
+            }
+        });
+        this.subscription.push(empresa);
+        
 
         this.table.currentPage.next(1);
 
-        lastValueFrom(this.pessoaService.getList())
+        // lastValueFrom(this.pessoaService.getList())
         var selected = this.table.selected.subscribe(res => {
             if (res) {
                 this.tableLinks = [

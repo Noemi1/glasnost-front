@@ -12,16 +12,28 @@ import { Empresa, EmpresaCnae, EmpresaList, EmpresaRiscoCompliance, EmpresaTipo 
 })
 export class EmpresaService {
     url = environment.url;
-    list = new BehaviorSubject<EmpresaList[]>([]);
+    list = new BehaviorSubject<EmpresaList[]>([{
+        id: 28,
+        cnpj: 10907911000150,
+        razaoSocial: 'BulleST Soluções em Tecnologia Ltda',
+        dataDesativado: '2023-11-29T23:12:04.077' as unknown as Date,
+        ativo: false ,
+        filter: '28' + '10907911000150' + 'BulleST Soluções em Tecnologia Ltda' + '2023-11-29T23:12:04.077'
+    }]);
+    empresaSelected:  BehaviorSubject<EmpresaList>
     riscoCompliance = new BehaviorSubject<EmpresaRiscoCompliance[]>([]);
     tipos = new BehaviorSubject<EmpresaTipo[]>([]);
     cnaes = new BehaviorSubject<EmpresaCnae[]>([]);
+
+
     constructor(
         private table: Table,
         private http: HttpClient,
         private toastr: ToastrService,
         private crypto: Crypto,
-    ) { }
+    ) {
+        this.empresaSelected = new BehaviorSubject<EmpresaList>(this.list.value[0]);
+    }
 
 
     getList() {

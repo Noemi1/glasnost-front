@@ -7,6 +7,7 @@ export class EmpresaList extends Basic {
     razaoSocial: string = '';
     dataDesativado?: Date;
     ativo: boolean = true;
+    filter: string = '';
 }
 
 export class Empresa extends Basic {

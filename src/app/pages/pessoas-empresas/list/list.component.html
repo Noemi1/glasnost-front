@@ -5,8 +5,8 @@
         </span>
         <div class="me-auto">
             <h3 class="page__header-title">Pessoas/Empresas</h3>
-            <p class="page__header-subtitle"><small>Clientes cadastrados em 
-                <!-- <strong>{{empresaSelected.nome || "Empresa X"}}</strong> -->
+            <p class="page__header-subtitle" *ngIf="empresaSelected"><small>Pessoas/Empresas cadastrados em 
+                <strong>{{empresaSelected.razaoSocial || "Empresa X"}}</strong>
             </small></p>
 
         </div>
