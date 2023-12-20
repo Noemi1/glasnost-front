@@ -6,6 +6,8 @@ import { Crypto } from '../utils/crypto';
 import { environment } from 'src/environments/environment';
 import { Table } from '../utils/table';
 import { Pessoa } from '../models/pessoa.model';
+import { EmpresaService } from './empresa.service';
+import { insertOrReplace, remove } from '../utils/service-list';
 
 @Injectable({
     providedIn: 'root'
@@ -19,12 +21,15 @@ export class PessoaService {
         private http: HttpClient,
         private toastr: ToastrService,
         private crypto: Crypto,
+        private empresaService: EmpresaService,
     ) { }
 
 
-    getList(empresaId: number, ativo?: boolean) {
+    getList(empresaId?: number, ativo?: boolean) {
+        empresaId = empresaId ?? this.empresaService.empresaSelected.value.id;
+        // empresaId = empresaId ?? (this.account.perfilAcesso_Id != Role.Admin ? this.account.empresa_Id : this.empresa.id);
         this.table.loading.next(true);
-        return this.http.get<Pessoa[]>(`${this.url}/pessoa/all/${empresaId}/${ativo}`, { headers: new HttpHeaders({ 'loading': 'false' })})
+        return this.http.get<Pessoa[]>(`${this.url}/pessoa/all/${empresaId}/${ativo ?? ''}`, { headers: new HttpHeaders({ 'loading': 'false' })})
         .pipe(tap({
             next: list => {
                 list = list.map(x => {
@@ -74,15 +79,25 @@ export class PessoaService {
     }
 
     create(request: Pessoa) {
-        return this.http.post<Pessoa>(`${this.url}/pessoa`, request);
+        request.empresa_Id = this.empresaService.empresaSelected.value.id;
+        return this.http.post<Pessoa>(`${this.url}/pessoa`, request)
+        .pipe(map(res => {
+            insertOrReplace(this, res);
+        }));
     }
 
     edit(request: Pessoa) {
-        return this.http.put<Pessoa>(`${this.url}/pessoa`, request);
+        return this.http.put<Pessoa>(`${this.url}/pessoa`, request)
+        .pipe(map(res => {
+            insertOrReplace(this, res);
+        }));
     }
 
     delete(id: number) {
-        return this.http.delete(`${this.url}/pessoa/${id}`);
+        return this.http.delete(`${this.url}/pessoa/${id}`)
+        .pipe(map(res => {
+            remove(this, id);
+        }));
     }
 
 }

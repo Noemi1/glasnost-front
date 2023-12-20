@@ -1,6 +1,5 @@
 import { Component, HostListener } from '@angular/core';
 import { IsMobile } from './utils/mobile';
-import { Modal } from './utils/modal-open';
 
 @Component({
     selector: 'app-root',
@@ -11,10 +10,8 @@ export class AppComponent {
 
     constructor(
         private isMobile: IsMobile,
-        private modal: Modal,
     ) {
         this.isMobile.set();
-        this.modal.setOpen(false);
     }
     @HostListener('window:resize', ['$event'])
     set() {

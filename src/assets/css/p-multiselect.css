@@ -1,6 +1,7 @@
 .p-multiselect-clearable {
     position: relative;
 }
+
 .p-multiselect {
     display: inline-flex;
     cursor: pointer;
@@ -9,15 +10,18 @@
     user-select: none;
     width: 100%;
 }
+
 .p-multiselect-label-container {
     overflow: hidden;
     flex: 1 1 auto;
     cursor: pointer;
     display: flex;
 }
+
 .p-multiselect-clearable .p-multiselect-label-container {
     padding-right: 1.75rem;
 }
+
 .p-multiselect-label {
     display: block;
     white-space: nowrap;
@@ -25,19 +29,23 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .p-multiselect .p-multiselect-label {
     padding: 0;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
+
 .p-multiselect .p-multiselect-label.p-placeholder {
     color: #6c757d;
 }
+
 .p-multiselect-trigger {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
 }
+
 .p-multiselect .p-multiselect-trigger {
     background: transparent;
     color: #6c757d;
@@ -45,21 +53,21 @@
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
 }
+
 .p-icon-wrapper {
     display: inline-flex;
 }
-.form-control.p-multiselect .p-overlay {
-    /* position: absolute;
-    top: 0;
-    left: 0;
-    min-width: unset!important; */
+
+.form-control.p-multiselect.p-inputwrapper-focus .p-overlay {
     max-width: 100%;
     box-shadow: 1px 1px 7px 0px #0000005c;
     border: 1px #bbbbbb solid;
 }
-.form-control.p-multiselect  .p-overlay-content {
+
+.form-control.p-multiselect .p-overlay-content {
     transform-origin: inherit;
 }
+
 .p-multiselect-panel {
     background: #ffffff;
     color: #495057;
@@ -67,11 +75,13 @@
     border-radius: 6px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
+
 .p-multiselect-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
+
 .p-multiselect-panel .p-multiselect-header {
     padding: 0.75rem 1.25rem;
     border-bottom: 1px solid #dee2e6;
@@ -81,6 +91,7 @@
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
 }
+
 .p-checkbox {
     display: inline-flex;
     cursor: pointer;
@@ -89,6 +100,7 @@
     vertical-align: bottom;
     position: relative;
 }
+
 .p-multiselect-panel .p-multiselect-header .p-checkbox {
     margin-right: 0.5rem;
 }
@@ -101,18 +113,22 @@
 .p-multiselect-filter-container .p-inputtext {
     width: 100%;
 }
+
 .p-multiselect-panel .p-multiselect-header .p-multiselect-filter-container .p-inputtext {
     padding-right: 1.75rem;
 }
+
 .p-multiselect-filter-icon {
     position: absolute;
     top: 50%;
     margin-top: -.5rem;
 }
+
 .p-multiselect-panel .p-multiselect-header .p-multiselect-filter-container .p-multiselect-filter-icon {
     right: 0.75rem;
     color: #6c757d;
 }
+
 .p-multiselect-close {
     display: flex;
     align-items: center;
@@ -121,6 +137,7 @@
     overflow: hidden;
     position: relative;
 }
+
 .p-multiselect-panel .p-multiselect-header .p-multiselect-close {
     margin-left: 0.5rem;
     width: 2rem;
@@ -131,6 +148,7 @@
     border-radius: 50%;
     transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
+
 .p-multiselect-panel .p-multiselect-header .p-multiselect-close {
     margin-left: 0.5rem;
     width: 2rem;
@@ -141,24 +159,29 @@
     border-radius: 50%;
     transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
+
 .p-button-icon-only:after {
     content: "p";
     visibility: hidden;
     clip: rect(0 0 0 0);
     width: 0;
 }
+
 .p-multiselect-items-wrapper {
     overflow: auto;
 }
+
 .p-multiselect-items {
     margin: 0;
     padding: 0;
     list-style-type: none;
 }
+
 .p-multiselect-panel .p-multiselect-items {
     padding: 0.75rem 0;
     width: 100%;
 }
+
 .p-multiselect-item {
     cursor: pointer;
     display: flex;
@@ -168,6 +191,7 @@
     position: relative;
     overflow: unset;
 }
+
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item {
     margin: 0;
     padding: 0.75rem 1.25rem;
@@ -177,14 +201,17 @@
     transition: box-shadow 0.2s;
     border-radius: 0;
 }
+
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item:not(.p-highlight):not(.p-disabled).p-focus {
     color: #495057;
     background: #dee2e6;
 }
+
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item:not(.p-highlight):not(.p-disabled):hover {
     color: #495057;
     background: #e9ecef;
 }
+
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item .p-checkbox {
     margin-right: 0.5rem;
 }

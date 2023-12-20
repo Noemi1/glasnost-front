@@ -5,12 +5,15 @@ export interface Column {
     header: string, 
     maskType: MaskType,
     mask?: string;
+    maskLength?: number;
     decimal?: string,
     moeda?: string
     filterType: FilterType, 
     filterDisplay: FilterDisplay,
     filterShowMatchMode?: boolean;
-    showOperator?: boolean;
+    filterShowOperator?: boolean;
+    filterShowClearButton?: boolean;
+    filterShowApplyButton?: boolean;
     filterShowAddButton?: boolean;
     filterMatchMode?: FilterMatchMode;
     substringLength?: number; // Masktype.substring

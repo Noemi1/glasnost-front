@@ -32,8 +32,12 @@
                     </div>
                     <div class="p-input-icon-left col-lg-4 col-md-4 col-sm-4 col-12 mb-2" *ngIf=" filterTable">
                         <i class="pi pi-search"></i>
-                        <input pInputText type="text" class="form-control "
-                               (input)="dt.filterGlobal(filter.value , 'contains')" #filter placeholder="Pesquisar" />
+                        <input type="text"
+                                pInputText
+                                class="form-control" 
+                               (input)="dt.filterGlobal(filter.value , 'contains')"
+                                #filter 
+                                placeholder="Pesquisar" />
                     </div>
                 </div>
             </div>
@@ -50,15 +54,23 @@
                                         [field]="col.field" 
                                         [display]="col.filterDisplay" 
                                         [matchMode]="col.filterMatchMode" 
-                                        [showOperator]="col.showOperator" 
+                                        [showOperator]="col.filterShowOperator" 
                                         [showMatchModes]="col.filterShowMatchMode" 
-                                        [showAddButton]="col.filterShowAddButton">
+                                        [showAddButton]="col.filterShowAddButton"
+                                        [showApplyButton]="col.filterShowApplyButton"
+                                        [showClearButton]="col.filterShowClearButton">
                             <ng-template *ngIf="col.maskType == 'options' && col.values" pTemplate="filter" let-filter="filterCallback">
+                                {{col.filterBy}}
                                 <p-dropdown [(ngModel)]="col.filterValue"
-                                    [options]="col.values"
-                                    placeholder="Todos" 
-                                    optionLabel="output" 
-                                    optionValue="output">
+                                            [options]="col.values"
+                                            placeholder="Todos" 
+                                            optionLabel="output" 
+                                            optionDisabled="Todos"
+                                            [showClear]="true"
+                                            (onChange)="filterColOption($event.value, filter);">
+                                    <ng-template pTemplate="selectedItem">
+                                        <p *ngIf="col.filterValue != undefined">{{col.filterValue.output}}</p>
+                                    </ng-template>
                                     <ng-template let-item pTemplate="item">
                                         <span [classList]="'flag ' + item.class">{{item.output}}</span>
                                     </ng-template>
@@ -68,11 +80,37 @@
                                 <input type="text" 
                                     pInputText 
                                     mask="000.000.000-00" 
-                                    #cpf="ngModel" 
-                                    ngModel 
-                                    (change)="filterCol(cpf.value, filter, filterEl);"
+                                    [dropSpecialCharacters]="false"
                                     [(ngModel)]="col.filterValue" 
-                                    placeholder="000.000.000-00" />
+                                    placeholder="000.000.000-00" 
+                                    (change)="filterCol(col.filterValue, filter, filterEl);"/>
+                            </ng-template>
+                            <ng-template *ngIf="col.maskType == 'cpfcnpj'" pTemplate="filter" let-filter="filterCallback">
+                                <input type="text" 
+                                    pInputText 
+                                    mask="000.000.000-00||00.000.000/0000-00" 
+                                    [dropSpecialCharacters]="false"
+                                    [(ngModel)]="col.filterValue" 
+                                    placeholder="000.000.000-00 ou 00.000.000/0000-00" 
+                                   (change)="filterCol(col.filterValue, filter, filterEl);">
+                            </ng-template>
+                            <ng-template *ngIf="col.maskType == 'cnpj'" pTemplate="filter" let-filter="filterCallback">
+                                <input type="text" 
+                                    pInputText 
+                                    mask="00.000.000/0000-00" 
+                                    [(ngModel)]="col.filterValue" 
+                                    [dropSpecialCharacters]="false"
+                                    placeholder="00.000.000/0000-00" 
+                                   (change)="filterCol(col.filterValue, filter, filterEl);">
+                            </ng-template>
+                            <ng-template *ngIf="col.maskType == 'mask'" pTemplate="filter" let-filter="filterCallback">
+                                <input type="text" 
+                                    pInputText 
+                                    [mask]="col.mask" 
+                                    [dropSpecialCharacters]="false"
+                                    [(ngModel)]="col.filterValue" 
+                                    [placeholder]="col.mask" 
+                                   (change)="filterCol(col.filterValue, filter, filterEl);">
                             </ng-template>
                             <ng-template *ngIf="col.filterType == 'date'" pTemplate="filter" let-filter="filterCallback">
                                 <p-calendar [(ngModel)]="col.filterValue"
@@ -103,8 +141,8 @@
                 [pSelectableRow]="item.canSelect != false && selectable? item : null"
                 [pSelectableRowIndex]="item.canSelect != false && selectable? rowIndex : null">
                 <td *ngFor="let col of columns; index as i" [class.ps-4]="i == 0" [ngSwitch]="col.maskType">
-                    <div *ngSwitchCase="maskType.options">
-                        <span [classList]="'flag ' + item.optionValue!.class">{{item.optionValue!.output}}</span>
+                    <div *ngSwitchCase="maskType.options" style="max-width: 70px;">
+                        <span [classList]="'flag ' + getOptionValue(item, col, 'class')">{{getOptionValue(item, col, 'output')}}</span>
                     </div>
                     <div *ngSwitchDefault>
                         <p  

@@ -12,6 +12,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DisabledComponent } from './disabled/disabled.component';
+import { TabViewModule } from 'primeng/tabview';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { DisabledComponent } from './disabled/disabled.component';
     NgxMaskModule.forChild(),
     RadioButtonModule,
     MultiSelectModule,
+    TabViewModule,
   ]
 })
 export class EmpresasModule { }

@@ -84,8 +84,11 @@ export class Table {
                 value = this.currency.transform(value, 'BRL', '', col.decimal); 
             }
             else if (col.maskType == MaskType.mask && col.mask) {
-                value = value.toString().padStart( col.mask.length, '0');
-                value = this.mask.applyMask(value, col.mask);
+                value = value.toString().padStart( col.maskLength, '0');
+                // // console.log(value)
+                // console.log(col.mask, value.toString()  )
+                value = this.mask.applyMask(value.toString(), col.mask);
+                // console.log(value)
             } 
             else if (col.maskType == MaskType.percentage) {
                 value = this.currency.transform(value, 'BRL', '', col.decimal) + '%';
@@ -126,14 +129,14 @@ export class Table {
             } 
             else if (col.maskType == MaskType.options && col.values && col.values.length) {
                 var opt = col.values.find(x => x.value == value);
-                value = opt!.output;
-                row['optionValue'] = opt
+                // value = {
+                //     optionValue: opt,
+                //     value: value
+                // }
             }
             else {
                 return value ?? 'N/A';
             }
-
-            this.mask
         }
         return value ?? 'N/A';
     }

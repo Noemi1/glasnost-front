@@ -1,13 +1,11 @@
 import { AfterViewInit, Component, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { faCheckSquare, faTimesRectangle } from '@fortawesome/free-solid-svg-icons';
-import { ToastrService } from 'ngx-toastr';
 import { Subscription, lastValueFrom } from 'rxjs';
-import { Empresa } from 'src/app/models/empresa.model';
 import { EmpresaService } from 'src/app/services/empresa.service';
+import { Modal, ModalService } from 'src/app/services/modal.service';
 import { Crypto } from 'src/app/utils/crypto';
 import { getError } from 'src/app/utils/error';
-import { Modal } from 'src/app/utils/modal-open';
 
 @Component({
     selector: 'app-disabled',
@@ -26,42 +24,43 @@ export class DisabledComponent implements AfterViewInit, OnDestroy {
     @ViewChild('template') template: TemplateRef<any>;
     @ViewChild('icon') icon: TemplateRef<any>;
     subscription: Subscription[] = [];
-    routeBackOptions: any;
+    modal: Modal = new Modal;
 
 
     constructor(
         private activatedRoute: ActivatedRoute,
-        private toastr: ToastrService,
-        private modal: Modal,
         private crypto: Crypto,
         private empresaService: EmpresaService,
-        private router: Router,
+        private modalService: ModalService,
     ) {
-        this.routeBackOptions = { relativeTo: this.activatedRoute };
     }
 
 
     ngAfterViewInit(): void {
-        this.modal.icon.next(this.icon);
-        this.modal.template.next(this.template)
-        this.modal.style.next({ 'max-width': '300px' })
-        this.modal.activatedRoute.next(this.activatedRoute);
+        this.modal.id = 0;
+        this.modal.template = this.template;
+        this.modal.icon = this.icon;
+        this.modal.style = { 'max-width': '300px' };
+        this.modal.activatedRoute = this.activatedRoute;
+        this.modal.routerBackOptions = { relativeTo: this.activatedRoute };
+        this.modal.routerBack = ['../../'];
+
 
         this.activatedRoute.title.subscribe(res => {
             if (res?.includes('Habilitar')) {
-                this.modal.title.next('Habilitar empresa');
+                this.modal.title = 'Habilitar empresa';
                 this.habilitar = true;
             } else {
-                this.modal.title.next('Desabilitar empresa');
+                this.modal.title = 'Desabilitar empresa';
                 this.habilitar = false;
             }
         })
+
         var params = this.activatedRoute.params.subscribe(res => {
-            if (res['id']) {
-                this.modal.routerBack.next(['../../']);
-                this.id = this.crypto.decrypt(res['id']);
+            if (res['empresa_id']) {
+                this.id = this.crypto.decrypt(res['empresa_id']);
                 setTimeout(() => {
-                    this.modal.setOpen(true)
+                    this.modal = this.modalService.addModal(this.modal, 'moeda');
                 }, 100);
             } else {
                 this.voltar();
@@ -76,8 +75,9 @@ export class DisabledComponent implements AfterViewInit, OnDestroy {
     }
 
     voltar() {
-        this.modal.voltar(this.modal.routerBack.value, this.routeBackOptions);
+        this.modalService.removeModal(this.modal.id);
     }
+
     send() {
         this.erro = '';
         this.loading = true;

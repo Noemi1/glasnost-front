@@ -6,6 +6,7 @@ import { Crypto } from '../utils/crypto';
 import { environment } from 'src/environments/environment';
 import { Table } from '../utils/table';
 import { Empresa, EmpresaCnae, EmpresaList, EmpresaRiscoCompliance, EmpresaTipo } from '../models/empresa.model';
+import { insertOrReplace, remove } from '../utils/service-list';
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +21,7 @@ export class EmpresaService {
         ativo: false ,
         filter: '28' + '10907911000150' + 'BulleST Soluções em Tecnologia Ltda' + '2023-11-29T23:12:04.077'
     }]);
-    empresaSelected:  BehaviorSubject<EmpresaList>
+    empresaSelected:  BehaviorSubject<EmpresaSelected>;
     riscoCompliance = new BehaviorSubject<EmpresaRiscoCompliance[]>([]);
     tipos = new BehaviorSubject<EmpresaTipo[]>([]);
     cnaes = new BehaviorSubject<EmpresaCnae[]>([]);
@@ -32,7 +33,10 @@ export class EmpresaService {
         private toastr: ToastrService,
         private crypto: Crypto,
     ) {
-        this.empresaSelected = new BehaviorSubject<EmpresaList>(this.list.value[0]);
+        this.empresaSelected = new BehaviorSubject<EmpresaSelected>({
+            empresa: this.list.value[0],
+            id: this.list.value[0].id,
+        });
     }
 
 
@@ -94,28 +98,22 @@ export class EmpresaService {
 
     create(request: Empresa) {
         return this.http.post<Empresa>(`${this.url}/empresa`, request)
-        .pipe(tap({
-            next: res => {
-                lastValueFrom(this.getList());
-            },
+        .pipe(map(res => {
+            insertOrReplace(this, res);
         }));
     }
 
     edit(request: Empresa) {
         return this.http.put<Empresa>(`${this.url}/empresa`, request)
-        .pipe(tap({
-            next: res => {
-                lastValueFrom(this.getList());
-            },
+        .pipe(map(res => {
+            insertOrReplace(this, res);
         }));
     }
 
     delete(id: number) {
         return this.http.delete(`${this.url}/empresa/${id}`)
-        .pipe(tap({
-            next: res => {
-                lastValueFrom(this.getList());
-            },
+        .pipe(map(res => {
+            remove(this, id);
         }));
     }
 
@@ -133,4 +131,9 @@ export class EmpresaService {
         return this.http.get<boolean>(`${this.url}/empresa/valida-cnpj/${id}/${cnpj}`, {});
     }
 
+}
+
+export class EmpresaSelected {
+    empresa?: EmpresaList;
+    id: number = 0;
 }

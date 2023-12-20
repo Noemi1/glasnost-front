@@ -26,3 +26,61 @@
 .cnaes-item p {
     overflow: hidden;
 }
+
+.file-container {
+    width: 95%;
+    max-width: 340px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    height: 180px;
+    border: 2px #3f3c3c dashed;
+    border-radius: 25px;
+    background-color: #fdfdfd;
+}
+
+.file-container .file-input {
+    display: none;
+}
+
+.file-icon {
+    display: flex;
+    flex-flow: column-reverse;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+}
+
+.file-icon .svg {
+    font-size: 48px;
+    margin-top: -10px;
+    margin-bottom: 5px;
+}
+
+.file-container label {
+    max-width: 65%;
+    text-align: center;
+}
+
+.file-icon .spinner-border {
+    margin: 5px;
+    position: absolute;
+    border-width: 3px;
+    z-index: 1;
+    border-color: rgb(var(--yellow));
+    border-right-color: transparent;
+    filter: drop-shadow(0px 0px 3px black);
+    width: 25px;
+    height: 25px;
+}
+
+.file-container.file-loading {
+    background-color: #d1d1d1;
+}
+
+.file-image img {
+    max-height: 350px;
+    width: auto;
+    margin: 25px auto;
+}

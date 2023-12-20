@@ -24,7 +24,7 @@ export var pessoaQualificadaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
         filterMatchMode: FilterMatchMode.EQUALS,
     }, 
     {
@@ -35,7 +35,7 @@ export var pessoaQualificadaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
         filterMatchMode: FilterMatchMode.CONTAINS,
     },
     {
@@ -46,7 +46,7 @@ export var pessoaQualificadaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
         filterMatchMode: FilterMatchMode.EQUALS,
     },
     {
@@ -57,7 +57,7 @@ export var pessoaQualificadaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
         filterMatchMode: FilterMatchMode.EQUALS,
     },
     {
@@ -68,7 +68,7 @@ export var pessoaQualificadaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
         filterMatchMode: FilterMatchMode.EQUALS,
     },
     {
@@ -80,7 +80,7 @@ export var pessoaQualificadaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
         filterMatchMode: FilterMatchMode.CONTAINS,
     },
     

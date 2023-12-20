@@ -218,6 +218,7 @@ tr.selectable {
     border-radius: 3px;
     text-align: center;
     text-transform: capitalize;
+    width: 100%;
 }
 
 .flag-danger {
@@ -234,7 +235,15 @@ tr.selectable {
     background-color: #1a9d24;
     color: #fff;
 }
+.flag.flag-yellow {
+    background-color: rgb(var(--primary));
+    color: #fff;
+}
 
+.flag.flag-grey {
+    background-color: rgb(var(--secondary));
+    color: #fff;
+}
 .flag.flag-text {
     display: inline-flex;
     align-items: center;
@@ -316,6 +325,7 @@ tr.selectable {
     border: 1px #b7afaf solid;
     border-radius: 5px;
     padding: 5px 8px;
+    width: 100%;
 }
 
 .p-column-filter-matchmode-dropdown:hover,

@@ -19,7 +19,7 @@ export var acionistaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
         filterMatchMode: FilterMatchMode.EQUALS,
     }, 
     {
@@ -31,7 +31,7 @@ export var acionistaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
         filterMatchMode: FilterMatchMode.CONTAINS,
     },
     {
@@ -42,7 +42,7 @@ export var acionistaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
         filterMatchMode: FilterMatchMode.EQUALS,
     },
     {
@@ -53,7 +53,7 @@ export var acionistaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
         filterMatchMode: FilterMatchMode.EQUALS,
         values: [
             { value: true, output: 'Empresa', class: 'flag-yellow' },

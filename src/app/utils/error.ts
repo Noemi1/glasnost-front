@@ -3,8 +3,6 @@ import { HttpErrorResponse } from "@angular/common/http";
 
 export function getError(res: HttpErrorResponse) {
 var msg = "Ocorreu um erro, mas não foi possível localizar a causa.";
-                    console.log('msg', msg);
-
     res = ConvertKeysToLowerCase(res) as HttpErrorResponse;
 
     if (res) {

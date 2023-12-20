@@ -3,7 +3,7 @@ import { Subscription, lastValueFrom } from 'rxjs';
 import { Role } from 'src/app/models/account-perfil.model';
 import { Account } from 'src/app/models/account.model';
 import { Empresa, EmpresaList } from 'src/app/models/empresa.model';
-import { EmpresaService } from 'src/app/services/empresa.service';
+import { EmpresaSelected, EmpresaService } from 'src/app/services/empresa.service';
 
 @Component({
     selector: 'app-empresa-select',
@@ -13,8 +13,8 @@ import { EmpresaService } from 'src/app/services/empresa.service';
 })
 export class EmpresaSelectComponent implements OnDestroy {
     // empresaSelected = new Empresa;
-    empresaSelected: any = {};
-    empresaSelectedId = 0;
+    empresaSelected: EmpresaSelected = new EmpresaSelected;
+   
     empresas: EmpresaList[] = [];
     loading = false;
     account?: Account;
@@ -24,30 +24,38 @@ export class EmpresaSelectComponent implements OnDestroy {
     constructor(
         private empresaService: EmpresaService,
     ) {
+
+
+
         var empresa = this.empresaService.empresaSelected.subscribe(res => {
             this.empresaSelected = res;
-            this.empresaSelectedId = res.id;
             this.setFilter();
         });
         this.subscription.push(empresa);
 
-        lastValueFrom(this.empresaService.getList())
-            .then(res => {
-                this.empresas = res;
-                this.setFilter();
-            })
-            .finally(() => this.loading = false);
+        var list = this.empresaService.list.subscribe(res => {
+            this.empresas = res;
+        });
+        this.subscription.push(list);
+
+
+        // lastValueFrom(this.empresaService.getList())
+        //     .then(res => {
+        //         this.empresas = res;
+        //     })
+        //     .finally(() => this.loading = false);
     }
 
     ngOnDestroy(): void {
         this.subscription.forEach(item => item.unsubscribe());
     }
 
-    empresaChange() { 
-        console
-        if (this.empresaSelectedId) {
-            var empresa = this.empresas.find(x => x.id == this.empresaSelectedId) as EmpresaList;
-            this.empresaService.empresaSelected.next(empresa);
+    async empresaChange() { 
+        if (this.empresaSelected.id) {
+            if (this.empresas.length == 0) 
+                await lastValueFrom(this.empresaService.getList());
+            var empresa = this.empresas.find(x => x.id == this.empresaSelected.id) as EmpresaList;
+            this.empresaService.empresaSelected.next({empresa, id: this.empresaSelected.id});
         }
     }
 

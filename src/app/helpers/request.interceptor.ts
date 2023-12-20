@@ -149,7 +149,6 @@ export class RequestInterceptor implements HttpInterceptor {
             }),
             // Log when response observable either completes or errors
             finalize(() => {
-                console.log('oi aaa')
                 this.table.loading.next(false)
                 this.loadingUtils.loading.next(false);
                 if (request.method == 'POST' || request.method == 'PUT' || request.method == 'DELETE' || loadingHeader == 'true') {

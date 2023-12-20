@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { faEllipsisV, faFilter, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ColumnFilter } from 'primeng/table';
 import { Subscription } from 'rxjs';
-import { Column, FilterDisplay, FilterType, MaskType } from 'src/app/helpers/column.interface';
+import { Column, MaskType, OptionValues } from 'src/app/helpers/column.interface';
 import { MenuTableLink } from 'src/app/helpers/menu-links.interface';
 import { Role } from 'src/app/models/account-perfil.model';
 import { Table } from 'src/app/utils/table';
@@ -99,12 +99,10 @@ export class ListSharedComponent implements OnDestroy, OnChanges, AfterViewInit,
 
 
     formata() {
-        console.log('formata')
         this.list.forEach((row: any) => {
             this.columns.forEach(col => {
                 try {
-                    var a = this.formatCellData(row, col);
-                    row[col.field] = a;
+                    row[col.field] = this.formatCellData(row, col);
                 } catch (e) {
                     console.error(e)
                 }
@@ -117,28 +115,32 @@ export class ListSharedComponent implements OnDestroy, OnChanges, AfterViewInit,
 
 
     onRowSelect(event: any) {
-        console.log('onRowSelect')
         this.table.onRowSelect(event);
     }
 
     onRowUnselect(event: any) {
-        console.log('onRowUnselect')
         this.table.onRowUnselect(event)
     }
 
     formatCellData(row: any, col: Column) {
-        console.log('formatCellData')
         var value = this.table.formatCellData(row, col);
         return value
     }
 
     getCellValue(row: any, col: Column) {
-        console.log('getCellValue')
         return this.table.getCellValue(row, col);
     }
 
+    getOptionValue(row: any, col: Column, field: string) {
+        if (col.values) {
+            var value = this.table.getCellValue(row, col);
+            var opt = col.values.find(x => x.value == value) as any;
+            return opt[field];
+        }
+        return null;
+    }
+
     primeNgDataFilter(value: Date, filterCallback: any, filter: ColumnFilter) {
-        console.log('primeNgDataFilter')
         if (value) {
             filterCallback(new Date(value));
         } else {
@@ -147,18 +149,24 @@ export class ListSharedComponent implements OnDestroy, OnChanges, AfterViewInit,
     }
 
     evalRowActions(str: any, item: any) {
-        console.log('evalRowActions')
         return eval(str) as boolean
     }
 
     filterCol(value: any, filter: any, filterEl: ColumnFilter) {
-        console.log('filterCol', value, filter, filterEl)
         filter(value);
-        $(filterEl.el.nativeElement).find('.p-column-filter-menu-button').trigger('click');
+
+        var a = $(filterEl.el.nativeElement).find('.p-column-filter-menu-button');
+        console.log(a)
+        a.trigger('click');
         setTimeout(() => {
-            $(filterEl.el.nativeElement).find('.p-column-filter-menu-button').trigger('click');
+            a.trigger('click');
         }, 50);
 
+    }
+
+    filterColOption(value: any, filter: any) {
+        value = value != undefined && value != null ? value.value : undefined;
+        filter(value);
     }
 }
 

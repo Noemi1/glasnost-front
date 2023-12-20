@@ -56,7 +56,7 @@ input {
     color: #d40505;
 }
 
-.form-control.ng-valid:not(.form-control[readonly]):not(.form-control[disabled]),
+/* .form-control.ng-valid.ng-dirty:not(.form-control[readonly]):not(.form-control[disabled]), */
 .form-control.ng-valid[required]:not(.form-control[readonly]):not(.form-control[disabled]):-internal-autofill-selected,
 .form-control.ng-valid[required]:not(.form-control[readonly]):not(.form-control[disabled]) {
     background-blend-mode: hard-light;

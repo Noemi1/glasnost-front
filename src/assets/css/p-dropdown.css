@@ -28,6 +28,8 @@
 .p-dropdown .p-dropdown-label {
     background: transparent;
     border: 0 none;
+    padding-right: 10px;
+    overflow: hidden;
 }
 
 .p-dropdown-trigger {

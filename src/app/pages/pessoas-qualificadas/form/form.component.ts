@@ -5,11 +5,10 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, lastValueFrom } from 'rxjs';
 import { Pessoa } from 'src/app/models/pessoa.model';
-import { LoadingService } from 'src/app/parts/loading/loading';
 import { PessoaService } from 'src/app/services/pessoa.service';
+import { Modal, ModalService } from 'src/app/services/modal.service';
 import { Crypto } from 'src/app/utils/crypto';
 import { getError } from 'src/app/utils/error';
-import { Modal } from 'src/app/utils/modal-open';
 import { validateCnpj } from 'src/app/utils/validate-cnpj';
 import { validateCPF } from 'src/app/utils/validate-cpf';
 
@@ -31,49 +30,49 @@ export class FormComponent implements OnDestroy, AfterViewInit {
 	@ViewChild('template') template: TemplateRef<any>
 	@ViewChild('icon') icon: TemplateRef<any>
 	@ViewChild('documento') documento: NgModel
+    modal: Modal = new Modal;
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
 		private toastr: ToastrService,
-		private modal: Modal,
 		private crypto: Crypto,
-		private loadingUtils: LoadingService,
 		private pessoaService: PessoaService,
+        private modalService: ModalService,
 	) {
 		this.routeBackOptions = { relativeTo: this.activatedRoute };
 
-		var getOpen = this.modal.getOpen().subscribe(res => this.modalOpen = res);
-		this.subscription.push(getOpen);
 	}
 
 	ngAfterViewInit(): void {
-		this.modal.template.next(this.template)
-		this.modal.style.next({ 'max-width': '600px' })
-		this.modal.activatedRoute.next(this.activatedRoute);
-		this.modal.icon.next(this.icon);
+        this.modal.id =  0;
+        this.modal.template =  this.template;
+        this.modal.icon = this.icon;
+        this.modal.style = { 'max-width': '600px' };
+        this.modal.activatedRoute = this.activatedRoute;
+        this.modal.routerBackOptions = { relativeTo: this.activatedRoute };
 
 		var params = this.activatedRoute.params.subscribe(res => {
 			if (res['id']) {
-				this.modal.title.next('Editar pessoa/empresa');
-				this.modal.routerBack.next(['../../']);
+				this.modal.title = 'Editar Pessoa Qualificada';
+				this.modal.routerBack = ['../../'];
 				this.object.id = this.crypto.decrypt(res['id']);
 
 				lastValueFrom(this.pessoaService.get(this.object.id))
 					.then(obj => {
 						this.object = obj;
 						setTimeout(() => {
-							this.modal.setOpen(true)
+                            this.modal = this.modalService.addModal(this.modal, 'moeda');
 						}, 100);
 					})
 					.catch(err => {
-						this.modal.voltar(this.modal.routerBack.value, this.routeBackOptions);
+						this.voltar();
 						this.toastr.error('This page could not be accessed');
 					});
 			} else {
-				this.modal.routerBack.next(['../']);
-				this.modal.title.next('Cadastrar pessoa/empresa');
+				this.modal.routerBack = ['../'];
+				this.modal.title = 'Cadastrar Pessoa Qualificada';
 				setTimeout(() => {
-					this.modal.setOpen(true)
+                    this.modal = this.modalService.addModal(this.modal, 'moeda');
 				}, 100);
 			}
 		});
@@ -84,6 +83,11 @@ export class FormComponent implements OnDestroy, AfterViewInit {
 	ngOnDestroy(): void {
 		this.subscription.forEach(item => item.unsubscribe());
 	}
+
+    voltar() {
+        this.modalService.removeModal(this.modal.id);
+    }
+
 
 	pjChange(doc: number) {
 		this.object.documento = '' as unknown as number;
@@ -130,7 +134,7 @@ export class FormComponent implements OnDestroy, AfterViewInit {
 		this.erro = '';
 		this.request()
 			.then(res => {
-				this.modal.voltar(this.modal.routerBack.value, this.routeBackOptions);
+				this.voltar();
 			})
 			.catch(err => {
 				this.erro = getError(err);

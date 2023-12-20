@@ -3,7 +3,7 @@ import { Column, FilterDisplay, FilterType, MaskType } from "../helpers/column.i
 import { Basic } from "./basic.model";
 
 export class Pessoa extends Basic {
-    cliente_Id: number = 0;
+    empresa_Id: number = 0;
     pj: boolean = false;
     estrangeiro: boolean = false;
     documento: number = '' as unknown as number;
@@ -22,7 +22,7 @@ export var pessoaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
         filterMatchMode: FilterMatchMode.EQUALS,
     }, 
     {
@@ -34,7 +34,7 @@ export var pessoaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
         filterMatchMode: FilterMatchMode.CONTAINS,
     },
     {
@@ -45,8 +45,8 @@ export var pessoaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
-        filterMatchMode: FilterMatchMode.EQUALS,
+        filterShowOperator: false,
+        filterMatchMode: FilterMatchMode.CONTAINS,
     },
     {
         field: 'email',
@@ -57,7 +57,7 @@ export var pessoaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
         filterMatchMode: FilterMatchMode.EQUALS,
     },
     {
@@ -68,7 +68,9 @@ export var pessoaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
+        filterShowClearButton: false,
+        filterShowApplyButton: false,
         filterMatchMode: FilterMatchMode.EQUALS,
         values: [
             { value: true, output: 'Empresa', class: 'flag-yellow' },
@@ -77,17 +79,19 @@ export var pessoaColumns: Column[] = [
     },
     {
         field: 'ativo',
-        header: '',
+        header: 'Status',
         maskType: MaskType.options,
         filterType: FilterType.text,
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
+        filterShowClearButton: false,
+        filterShowApplyButton: false,
         filterMatchMode: FilterMatchMode.EQUALS,
         values: [
-            { value: true, output: 'Ativo', class: 'flag-grey' },
+            { value: true, output: 'Ativo', class: 'flag-green' },
             { value: false, output: 'Inativo', class: 'flag-danger' },
         ]
-    }, 
+    },
 ]

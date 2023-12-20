@@ -1,23 +1,23 @@
-<div class="modal" [class.active]="modalOpen">
-    <div class="modal__bg" (click)="voltar()"></div>
+<p class="text-danger fw-bold">{{modalList.length}}</p>
+<div [classList]="'modal ' + item.classList " [attr.modal]="item.id" *ngFor="let item of modalList" >
+    <div class="modal__bg" (click)="voltar(item.id)"></div>
     <div class="modal__inner"
-         [ngStyle]="style">
+         [ngStyle]="item.style">
         <div class="modal__content">
             <div class="modal__header pb-2">
                 <h3>
                     <span class="icon">
-                        <ng-template *ngIf="icon != undefined" [ngTemplateOutlet]="icon"></ng-template>
-                        <fa-icon *ngIf="icon == undefined" [icon]="iconTitle"></fa-icon>
+                        <ng-template *ngIf="item.icon != undefined" [ngTemplateOutlet]="item.icon"></ng-template>
                     </span>
-                    <span>{{title}}</span>
+                    <span>{{item.title}}</span>
                 </h3>
-                <a (click)="voltar()" class="modal__header-close btn-close">
+                <a (click)="voltar(item.id)" class="modal__header-close btn-close">
                     <span></span>
                     <span></span>
                 </a>
             </div>
             <div class="modal__body mt-0">
-                <ng-template [ngTemplateOutlet]="template ?? null"></ng-template>
+                <ng-template [ngTemplateOutlet]="item.template ?? null"></ng-template>
             </div>
         </div>
     </div>

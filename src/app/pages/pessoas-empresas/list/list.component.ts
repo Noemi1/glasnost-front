@@ -21,23 +21,20 @@ export class ListComponent implements OnDestroy {
     list: Pessoa[] = [];
     tableLinks: MenuTableLink[] = [];
     subscription: Subscription[] = [];
-    empresaSelected = new EmpresaList;
+    empresaSelected?: EmpresaList;
 
     constructor(
         private table: Table,
         public crypto: Crypto,
         public pessoaService: PessoaService,
-        private mask: MaskApplierService,
         private empresaService: EmpresaService,
     ) {
         var list = this.pessoaService.list.subscribe(res => this.list = res);
         this.subscription.push(list);
 
         var empresa = this.empresaService.empresaSelected.subscribe(async res => {
-            this.empresaSelected = res;
-            console.log(res)
-            if (res && res.id) {
-                console.log('oi')
+            this.empresaSelected = res.empresa;
+            if (res.id) {
                 await lastValueFrom(this.pessoaService.getList(res.id));
             }
         });
@@ -46,13 +43,18 @@ export class ListComponent implements OnDestroy {
 
         this.table.currentPage.next(1);
 
-        // lastValueFrom(this.pessoaService.getList())
         var selected = this.table.selected.subscribe(res => {
             if (res) {
                 this.tableLinks = [
                     { label: 'Editar', routePath: ['editar'], paramsFieldName: ['id'] }, 
                     { label: 'Exluir', routePath: ['excluir'], paramsFieldName: ['id'] }, 
                 ];
+                
+                if (res.ativo.value) {
+                    this.tableLinks.push({ label: 'Desabilitar', routePath: ['desabilitar'], paramsFieldName: ['id'] })
+                } else {
+                    this.tableLinks.push({ label: 'Habilitar', routePath: ['habilitar'], paramsFieldName: ['id'] })
+                }
                 this.tableLinks = this.table.encryptParams(this.tableLinks);
             }
         });

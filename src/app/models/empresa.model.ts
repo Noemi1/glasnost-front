@@ -22,6 +22,8 @@ export class Empresa extends Basic {
     diligenciaPrevia: boolean = false;
     riscoCompliance_Id: number = undefined as unknown as number;
     escopoResumido: string = '';
+    cronogramaImplantacaoURL: string = '';
+    logoDataUri: string = '';
     cep: number = '' as unknown as number;
     logradouro: string = '';
     numero: string = '';
@@ -55,7 +57,7 @@ export var empresaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
         filterMatchMode: FilterMatchMode.EQUALS,
     }, 
     {
@@ -66,18 +68,20 @@ export var empresaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
         filterMatchMode: FilterMatchMode.CONTAINS,
     },
     {
         field: 'cnpj',
         header: 'CNPJ',
-        maskType: MaskType.cnpj,
+        maskType: MaskType.mask,
+        mask: '00.000.000/0000-00',
+        maskLength: 14,
         filterType: FilterType.text,
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
         filterMatchMode: FilterMatchMode.EQUALS,
     },
     {
@@ -88,11 +92,13 @@ export var empresaColumns: Column[] = [
         filterDisplay: FilterDisplay.menu,
         filterShowAddButton: false,
         filterShowMatchMode: false,
-        showOperator: false,
+        filterShowOperator: false,
+        filterShowClearButton: false,
+        filterShowApplyButton: false,
         filterMatchMode: FilterMatchMode.EQUALS,
         values: [
-            { value: true, output: 'Habilitado', class: 'flag-green' },
-            { value: false, output: 'Desabilitado', class: 'flag-danger' },
+            { value: true, output: 'Ativo', class: 'flag-green' },
+            { value: false, output: 'Inativo', class: 'flag-danger' },
         ]
     },
 ]
