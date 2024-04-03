@@ -227,7 +227,7 @@ tr.selectable {
 }
 
 .flag-warning {
-    background-color: rgb( var(--yellow));
+    background-color: rgb(var(--yellow));
     color: #fff;
 }
 
@@ -235,6 +235,7 @@ tr.selectable {
     background-color: #1a9d24;
     color: #fff;
 }
+
 .flag.flag-yellow {
     background-color: rgb(var(--primary));
     color: #fff;
@@ -244,6 +245,7 @@ tr.selectable {
     background-color: rgb(var(--secondary));
     color: #fff;
 }
+
 .flag.flag-text {
     display: inline-flex;
     align-items: center;
@@ -261,7 +263,7 @@ tr.selectable {
 }
 
 .flag-text.flag-warning {
-    color: rgb( var(--yellow));
+    color: rgb(var(--yellow));
     background-color: transparent;
 }
 
@@ -746,4 +748,20 @@ tr.selected:nth-child(odd) td.td-actions {
 
 tr.selected td {
     background-color: #abcfdd !important;
+}
+
+.table-image-overlay-panel .logo {
+    width: 250px;
+    height: auto;
+}
+
+.table-image-overlay-panel .p-overlaypanel-content {
+    padding: 30px 40px;
+    background-color: #fff;
+    box-shadow: 1px 2px 6px 1px #00000026;
+    box-sizing: border-box;
+}
+
+.table-image-overlay-panel {
+    box-sizing: border-box;
 }
